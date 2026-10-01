@@ -1,0 +1,697 @@
+episodio,data,patologia
+EP001,2024-01-30,Displasia broncopulmonar
+EP001,2024-01-30,Refluxo gastroesofágico
+EP003,2024-01-30,Doença das membranas hialinas
+EP003,2024-01-30,Doença das membranas hialinas
+EP003,2024-01-30,Icterícia neonatal
+EP001,2024-01-31,Displasia Broncopulmonar
+EP001,2024-01-31,Refluxo gastroesofágico
+EP003,2024-01-31,Icterícia neonatal
+EP001,2024-02-01,Displasia broncopulmonar
+EP001,2024-02-01,Refluxo gastroesofágico
+EP002,2024-02-01,Citomegalovírus
+EP003,2024-02-01,Icterícia neonatal
+EP001,2024-02-02,Displasia broncopulmonar
+EP001,2024-02-02,Refluxo gastroesofágico
+EP002,2024-02-02,Citomegalovírus
+EP003,2024-02-02,Icterícia neonatal
+EP001,2024-02-03,Displasia broncopulmonar
+EP001,2024-02-03,Refluxo gastroesofágico
+EP002,2024-02-03,CMV
+EP003,2024-02-03,Icterícia neonatal
+EP004,2024-02-03,Citomegalovírus
+EP006,2024-02-03,Anemia
+EP001,2024-02-04,Displasia broncopulmonar
+EP001,2024-02-04,Refluxo gastroesofágico
+EP002,2024-02-04,
+EP003,2024-02-04,Icterícia neonatal
+EP004,2024-02-04,Citomegalovírus
+EP004,2024-02-04,Icterícia neonatal
+EP006,2024-02-04,Anemia
+EP008,2024-02-04,Doença das membranas hialinas
+EP009,2024-02-04,Doença das membranas hialinas
+EP001,2024-02-05,Displasia broncopulmonar
+EP001,2024-02-05,Refluxo gastroesofágico
+EP002,2024-02-05,Citomegalovírus
+EP003,2024-02-05,Icterícia neonatal
+EP004,2024-02-05,Citomegalovírus
+EP004,2024-02-05,Icterícia neonatal
+EP006,2024-02-05,Anemia 
+EP008,2024-02-05,
+EP008,2024-02-05,Doença das membranas hialinas
+EP009,2024-02-05,Doença das membranas hialinas
+EP001,2024-02-06,Displasia Broncopulmonar
+EP001,2024-02-06,Refluxo gastroesofágico
+EP002,2024-02-06,Citomegalovírus
+EP003,2024-02-06,Icterícia neonatal
+EP004,2024-02-06,Doença das membranas hialinas
+EP004,2024-02-06,Icterícia neonatal
+EP004,2024-02-06,Lesão renal aguda
+EP004,2024-02-06,Persistência do canal arterial
+EP005,2024-02-06,Icterícia neonatal
+EP006,2024-02-06,Anemia
+EP008,2024-02-06,Doenca das membranas hialinas
+EP009,2024-02-06,Doença das membranas hialinas
+EP001,2024-02-07,Anemia
+EP001,2024-02-07,Displasia broncopulmonar
+EP001,2024-02-07,Refluxo gastroesofágico
+EP003,2024-02-07,Icterícia neonatal
+EP004,2024-02-07,DMH
+EP004,2024-02-07,Icterícia neonatal
+EP004,2024-02-07,Lesão renal aguda
+EP004,2024-02-07,Persistência do canal arterial
+EP005,2024-02-07,Icterícia neonatal
+EP006,2024-02-07,Anemia
+EP008,2024-02-07,Doença das membranas hialinas
+EP008,2024-02-07,Icterícia neonatal
+ EP009,2024-02-07,Doença das membranas hialinas
+EP001,2024-02-08,Anemia
+EP001,2024-02-08,Displasia broncopulmonar
+EP001,2024-02-08,Refluxo gastroesofágico
+EP003,2024-02-08,Icterícia neonatal
+EP004,2024-02-08,DMH
+EP004,2024-02-08,Icterícia neonatal
+EP004,2024-02-08,Lesão renal aguda
+EP004,2024-02-08,Persistência do canal arterial
+EP006,2024-02-08,Anemia
+EP008,2024-02-08,Doença das membranas hialinas
+EP008,2024-02-08,Icterícia neonatal
+EP001,2024-02-09,Anemia
+EP001,2024-02-09,Displasia broncopulmonar
+EP001,2024-02-09,Refluxo gastroesofágico
+EP003,2024-02-09,Icterícia neonatal
+EP004,2024-02-09,Doença das membranas hialinas
+EP004,2024-02-09,Icterícia neonatal
+EP004,2024-02-09,Persistência do canal arterial
+EP006,2024-02-09,Anemia
+EP008,2024-02-09,Doenca das membranas hialinas
+EP008,2024-02-09,Icterícia neonatal
+EP001,2024-02-10,Anemia
+EP001,10/02/2024,Displasia broncopulmonar
+EP001,2024-02-10,Refluxo gastroesofágico
+EP003,2024-02-10,Icterícia neonatal
+EP003,2024-02-10,Icterícia neonatal
+EP004,2024-02-10,Doença das membranas hialinas
+EP004,2024-02-10,Icterícia neonatal
+EP004,2024-02-10,Persistência do canal arterial
+EP008,2024-02-10,Doença das membranas hialinas
+EP008,2024-02-10,Icterícia neonatal
+EP001,2024-02-11,Anemia
+EP001,2024-02-11,Displasia broncopulmonar
+EP001,2024-02-11,Refluxo gastroesofágico
+EP004,2024-02-11,Doença das membranas hialinas
+EP004,2024-02-11,Icterícia neonatal
+EP004,2024-02-11,Persistência do canal arterial
+EP006,2024-02-11,Anemia
+EP008,2024-02-11,Doença das membranas hialinas
+EP008,2024-02-11,Icterícia neonatal
+EP010,2024-02-11,Doença das membranas hialinas
+EP010,2024-02-11,Doença das membranas hialinas
+EP001,2024-02-12,Anemia
+EP001,2024-02-12,Displasia broncopulmonar
+EP001,2024-02-12,Refluxo gastroesofágico
+EP003,2024-02-12,Icterícia neonatal
+EP004,2024-02-12,Doença das membranas hialinas
+EP004,2024-02-12,Persistência do canal arterial
+EP006,2024-02-12,Anemia
+EP008,2024-02-12,Doença das membranas hialinas
+EP008,2024-02-12,Icterícia neonatal
+EP001,2024-02-13,Anemia
+EP001,2024-02-13,Displasia broncopulmonar
+EP001,2024-02-13,Refluxo gastroesofágico
+EP004,2024-02-13,Doença das membranas hialinas
+EP004,2024-02-13,Persistência do canal arterial
+EP006,2024-02-13,Anemia
+EP008,2024-02-13,Doenca das membranas hialinas
+EP008,2024-02-13,Icterícia neonatal
+EP001,2024-02-14,Anemia
+EP001,2024-02-14,Displasia broncopulmonar
+EP001,2024-02-14,Refluxo gastroesofágico
+EP004,2024-02-14,Doença das membranas hialinas
+EP004,2024-02-14,Persistência do canal arterial
+EP006,2024-02-14,Anemia
+EP008,2024-02-14,Doença das membranas hialinas
+EP008,2024-02-14,Icterícia neonatal
+EP001,2024-02-15,Anemia
+EP001,2024-02-15,Displasia broncopulmonar
+EP001,2024-02-15,Refluxo gastroesofágico
+EP001,2024-02-15,Refluxo gastroesofágico
+EP004,2024-02-15,Doença das membranas hialinas
+EP004,2024-02-15,Persistência do canal arterial
+EP006,2024-02-15,Anemia
+EP008,2024-02-15,Doença das membranas hialinas
+EP008,2024-02-15,Icterícia neonatal
+EP011,2024-02-15,Persistência do canal arterial
+EP001,2024-02-16,Anemia
+EP001,2024-02-16,Displasia broncopulmonar
+EP001,2024-02-16,Refluxo gastroesofágico
+EP004,2024-02-16,Doença das membranas hialinas
+EP004,2024-02-16,Persistência do canal arterial
+EP006,2024-02-16,Anemia
+EP008,2024-02-16,doença das membranas hialinas 
+EP008,2024-02-16,Icterícia neonatal
+EP011,2024-02-16,Persistência do canal arterial
+EP001,2024-02-17,Anemia
+EP001,2024-02-17,Displasia broncopulmonar
+EP001,2024-02-17,Refluxo gastroesofágico
+EP004,2024-02-17,Doença das membranas hialinas
+EP004,2024-02-17,Persistência do canal arterial
+EP004,2024-02-17,Persistência do canal arterial
+EP008,2024-02-17,Doença das membranas hialinas
+EP008,2024-02-17,Icterícia neonatal
+EP011,2024-02-17,Persistência do canal arterial
+EP001,2024-02-18,Anemia
+EP001,2024-02-18,Displasia broncopulmonar
+EP001,2024-02-18,RGE
+EP004,2024-02-18,Doença das membranas hialinas
+EP004,2024-02-18,Persistência do canal arterial
+EP011,2024-02-18,Persistência do canal arterial
+EP001,2024-02-19,
+EP001,2024-02-19,Displasia broncopulmonar
+EP001,2024-02-19,Refluxo gastroesofágico
+EP004,2024-02-19,Doença das membranas hialinas
+EP004,2024-02-19,Persistência do canal arterial
+EP008,2024-02-19,Doença das membranas hialinas
+EP008,2024-02-19,Icterícia neonatal
+EP011,2024-02-19,Persistência do canal arterial
+EP001,2024-02-20,Anemia
+EP001,2024-02-20,Displasia broncopulmonar
+EP001,2024-02-20,
+EP004,2024-02-20,Doença das membranas hialinas
+EP004,2024-02-20,Persistência do canal arterial
+EP008,2024-02-20,Doença das membranas hialinas
+EP008,2024-02-20,Icterícia neonatal
+EP011,2024-02-20,Persistência do canal arterial
+EP001,2024-02-21,Anemia
+EP001,2024-02-21,Displasia broncopulmonar
+EP001,2024-02-21,Refluxo gastroesofágico
+EP004,2024-02-21,Doença das membranas hialinas
+EP008,2024-02-21,Doença das membranas hialinas
+EP008,2024-02-21,Icterícia neonatal
+EP001,2024-02-22,Anemia
+EP001,2024-02-22,Displasia broncopulmonar
+EP001,2024-02-22,Refluxo gastroesofágico
+EP004,2024-02-22,Doença das membranas hialinas
+EP008,2024-02-22,Doença das membranas hialinas
+EP008,2024-02-22,Icterícia neonatal
+EP013,2024-02-22,Doença das membranas hialinas
+EP013,2024-02-22,Icterícia neonatal
+EP014,2024-02-22,Doença das membranas hialinas
+EP001,2024-02-23,Anemia
+EP001,2024-02-23,Displasia broncopulmonar
+EP001,2024-02-23,refluxo gastroesofagico
+EP004,2024-02-23,Doença das membranas hialinas
+EP013,2024-02-23,doença das membranas hialinas 
+EP013,2024-02-23,Icterícia neonatal
+EP014,2024-02-23,Doença das membranas hialinas
+EP015,2024-02-23,Doença das membranas hialinas
+EP016,2024-02-23,Doença das membranas hialinas
+EP004,2024-02-24,Doença das membranas hialinas
+EP013,2024-02-24,Doença das membranas hialinas
+EP013,2024-02-24,Icterícia neonatal
+EP014,2024-02-24,Doença das membranas hialinas
+EP015,2024-02-24,Doença das membranas hialinas
+EP016,2024-02-24,Doença das membranas hialinas
+EP004,2024-02-25,Doença das membranas hialinas
+EP013,2024-02-25,Doença das membranas hialinas
+EP014,2024-02-25,Doença das membranas hialinas
+EP015,2024-02-25,Doença das membranas hialinas
+EP016,2024-02-25,Doença das membranas hialinas
+EP016,2024-02-25,Icterícia neonatal
+EP001,2024-02-26,Anemia
+EP001,2024-02-26,
+EP001,2024-02-26,Refluxo gastroesofágico
+EP001,2024-02-26,Retinopatia da prematuridade
+EP004,2024-02-26,Doença das membranas hialinas
+EP008,2024-02-26,Doença das membranas hialinas
+EP008,2024-02-26,Icterícia neonatal
+EP013,2024-02-26,Doença das membranas hialinas
+EP014,2024-02-26,Doença das membranas hialinas
+EP015,26/02/2024,Doença das membranas hialinas
+EP015,2024-02-26,Icterícia neonatal
+EP015,2024-02-26,Icterícia neonatal
+EP016,26/02/2024,Doenca das membranas hialinas
+EP016,2024-02-26,Icterícia neonatal
+EP008,2024-02-27,Doença das membranas hialinas
+EP008,2024-02-27,Icterícia neonatal
+EP013,2024-02-27,Doença das membranas hialinas
+EP013,2024-02-27,Ictericia neonatal
+EP014,2024-02-27,Doença das membranas hialinas
+EP015,2024-02-27,Doença das membranas hialinas
+EP015,2024-02-27,Icterícia neonatal
+EP015,2024-02-27,Persistência do canal arterial
+EP016,2024-02-27,Doença das membranas hialinas
+EP016,2024-02-27,Icterícia neonatal
+EP019,2024-02-27,Doença das membranas hialinas
+EP008,2024-02-28,Doença das membranas hialinas
+EP008,2024-02-28,Icterícia neonatal
+EP013,2024-02-28,Doença das membranas hialinas
+EP013,2024-02-28,Icterícia neonatal
+EP014,2024-02-28,Doença das membranas hialinas
+EP015,2024-02-28,DMH
+EP015,2024-02-28,Icterícia neonatal
+EP015,2024-02-28,Persistência do canal arterial
+EP016,2024-02-28,Doença das membranas hialinas
+EP016,2024-02-28,Icterícia neonatal
+EP019,2024-02-28,
+EP008,2024-02-29,Doença das membranas hialinas
+EP008,2024-02-29,Icterícia neonatal
+EP013,2024-02-29,Doença das membranas hialinas
+EP013,2024-02-29,Icterícia neonatal
+EP014,2024-02-29,Doença das membranas hialinas
+EP015,2024-02-29,Doença das membranas hialinas
+EP015,2024-02-29,Ictericia neonatal
+EP015,2024-02-29, Persistência do canal arterial
+EP016,2024-02-29,Doença das membranas hialinas
+EP016,2024-02-29,Icterícia neonatal
+EP018,2024-02-29,Doença das membranas hialinas
+EP018,2024-02-29,Icterícia neonatal
+EP019,2024-02-29,Doença das membranas hialinas
+EP013,2024-03-01,Doença das membranas hialinas
+EP013,2024-03-01,Icterícia neonatal
+EP014,2024-03-01,Doença das membranas hialinas
+EP015,2024-03-01,Doença das membranas hialinas
+EP015,2024-03-01,Icterícia neonatal
+EP015,2024-03-01,Icterícia neonatal
+EP015,2024-03-01,Persistência do canal arterial
+EP016,2024-03-01,DMH
+EP018,2024-03-01,
+EP018,2024-03-01,Icterícia neonatal
+EP019,2024-03-01,Doença das membranas hialinas
+EP019,2024-03-01,Icterícia neonatal
+EP014,2024-03-02,Doença das membranas hialinas
+EP014,2024-03-02,Doença das membranas hialinas
+EP015,2024-03-02,Doença das membranas hialinas
+EP015,2024-03-02,Icterícia neonatal
+EP015,2024-03-02,Persistência do canal arterial
+EP016,2024-03-02,Doença das membranas hialinas
+EP018,2024-03-02,Doença das membranas hialinas
+EP018,2024-03-02,Icterícia neonatal
+EP018,2024-03-02,Icterícia neonatal
+EP019,2024-03-02,Doença das membranas hialinas
+EP019,2024-03-02,Icterícia neonatal
+EP015,2024-03-03,Doença das membranas hialinas
+EP015,2024-03-03,Icterícia neonatal
+EP015,2024-03-03,Persistência do canal arterial
+EP016,2024-03-03,Doença das membranas hialinas
+EP018,2024-03-03,Doença das membranas hialinas
+EP018,2024-03-03,Icterícia neonatal
+EP019,2024-03-03,Doença das membranas hialinas
+EP019,2024-03-03,Doença das membranas hialinas
+EP019,2024-03-03,Icterícia neonatal
+EP014,2024-03-04,Doença das membranas hialinas
+EP015,2024-03-04,Doença das membranas hialinas
+EP015,2024-03-04,Icterícia neonatal
+EP015,2024-03-04,Persistência do canal arterial
+EP016,2024-03-04,Doença das membranas hialinas
+EP017,2024-03-04,Doença das membranas hialinas
+EP017,2024-03-04,Icterícia neonatal
+EP018,2024-03-04,Doença das membranas hialinas
+EP018,2024-03-04,Icterícia neonatal
+EP020,2024-03-04,Doenca das membranas hialinas
+EP014,2024-03-05,Doença das membranas hialinas
+EP015,2024-03-05,Doença das membranas hialinas
+EP015,2024-03-05,Icterícia neonatal
+EP015,2024-03-05,Persistência do canal arterial
+EP016,2024-03-05,Doença das membranas hialinas
+EP017,2024-03-05,Doença das membranas hialinas
+EP017,2024-03-05,Icterícia neonatal
+EP018,2024-03-05,doença das membranas hialinas 
+EP018,2024-03-05,Icterícia neonatal
+EP020,2024-03-05,Doença das membranas hialinas
+EP015,2024-03-06,Doença das membranas hialinas
+EP015,2024-03-06,Icterícia neonatal
+EP015,2024-03-06,Persistência do canal arterial
+EP016,2024-03-06,Doença das membranas hialinas
+EP017,2024-03-06,Doença das membranas hialinas
+EP017,2024-03-06,Icterícia neonatal
+EP 018,2024-03-06,Doença das membranas hialinas
+EP018,2024-03-06,Icterícia neonatal
+EP020,2024-03-06,Doença das membranas hialinas
+EP015,2024-03-07,Doença das membranas hialinas
+EP015,2024-03-07,Persistência do canal arterial
+EP016,2024-03-07,Doença das membranas hialinas
+EP017,2024-03-07,Doença das membranas hialinas
+EP017,2024-03-07,Icterícia neonatal
+EP018,2024-03-07,Doença das membranas hialinas
+EP018,2024-03-07,Icterícia neonatal
+EP020,2024-03-07,doença das membranas hialinas 
+EP015,2024-03-08,Doença das membranas hialinas
+EP016,2024-03-08,Doença das membranas hialinas
+EP017,2024-03-08,Doença das membranas hialinas
+EP017,2024-03-08,Sépsis
+EP018,2024-03-08,Doença das membranas hialinas
+EP018,2024-03-08,Icterícia neonatal
+EP020,2024-03-08,Doença das membranas hialinas
+EP015,2024-03-09,Doença das membranas hialinas
+EP016,2024-03-09,Doença das membranas hialinas
+EP017,2024-03-09,Doença das membranas hialinas
+EP017,09/03/2024,Sépsis
+EP018,2024-03-09,Doença das membranas hialinas
+EP018,2024-03-09,Icterícia neonatal
+EP020,2024-03-09,Doença das membranas hialinas
+EP015,2024-03-10,Doença das membranas hialinas
+EP016,2024-03-10,Anemia
+EP016,2024-03-10,Doença das membranas hialinas
+EP017,2024-03-10,Doença das membranas hialinas
+EP017,2024-03-10,Sépsis
+EP018,2024-03-10,Doença das membranas hialinas
+EP018,2024-03-10,Icterícia neonatal
+EP020,2024-03-10,Doença das membranas hialinas
+EP022,2024-03-10,Doença das membranas hialinas
+EP024,2024-03-10,Doença das membranas hialinas
+EP015,2024-03-11,Doença das membranas hialinas
+EP016,2024-03-11,Anemia
+EP016,2024-03-11,Doença das membranas hialinas
+EP017,2024-03-11,Doença das membranas hialinas
+EP017,2024-03-11,Sépsis
+EP018,2024-03-11,Doença das membranas hialinas
+EP018,2024-03-11,Icterícia neonatal
+EP020,2024-03-11,Doença das membranas hialinas
+EP022,2024-03-11,Doença das membranas hialinas
+EP023,2024-03-11,Icterícia neonatal
+EP024,2024-03-11,Doença das membranas hialinas
+EP015,2024-03-12,Doença das membranas hialinas
+EP016,2024-03-12,Anemia
+EP016,2024-03-12,Doença das membranas hialinas
+EP017,2024-03-12,Doença das membranas hialinas
+EP017,2024-03-12,Sépsis
+EP018,2024-03-12,Doença das membranas hialinas
+EP018,2024-03-12,Icterícia neonatal
+EP023,12/03/2024,Icterícia neonatal
+EP024,2024-03-12,Doença das membranas hialinas
+EP027,2024-03-12,Citomegalovírus
+EP015,2024-03-13,Doença das membranas hialinas
+EP016,2024-03-13,Anemia
+EP016,2024-03-13,
+EP017,2024-03-13,Anemia
+EP017,2024-03-13,Doença das membranas hialinas
+EP017,2024-03-13,Sépsis
+EP018,2024-03-13,Doença das membranas hialinas
+EP018,2024-03-13,
+EP023,2024-03-13,Icterícia neonatal
+EP027,2024-03-13,Citomegalovírus
+EP015,2024-03-14,Doença das membranas hialinas
+EP016,2024-03-14,ANEMIA
+EP016,2024-03-14,Doença das membranas hialinas
+EP017,2024-03-14,Anemia
+EP017,2024-03-14,Doença das membranas hialinas
+EP017,2024-03-14,Sépsis
+ep018,2024-03-14,DMH
+EP018,2024-03-14,Icterícia neonatal
+EP020,2024-03-14,Doença das membranas hialinas
+EP020,2024-03-14,Icterícia neonatal
+EP023,2024-03-14,icterícia
+EP027,2024-03-14,Citomegalovírus
+EP017,2024-03-15,Anemia
+EP017,2024-03-15,Doença das membranas hialinas
+EP017,2024-03-15,Sépsis
+EP018,2024-03-15,Doença das membranas hialinas
+EP020,2024-03-15,Doença das membranas hialinas
+EP020,2024-03-15,Icterícia neonatal
+EP023,2024-03-15,Icterícia neonatal
+EP027,2024-03-15,Citomegalovírus
+EP017,2024-03-16,Anemia
+EP017,2024-03-16,Doença das membranas hialinas
+EP017,2024-13-02,Sépsis
+EP018,2024-03-16,Doença das membranas hialinas
+EP020,2024-03-16,Doença das membranas hialinas
+EP020,2024-03-16,Icterícia neonatal
+EP022,2024-03-16,Doença das membranas hialinas
+EP022,2024-03-16,Icterícia neonatal
+EP023,2024-03-16,Icterícia neonatal
+EP027,2024-03-16,Citomegalovírus
+EP017,2024-03-17,Anemia
+EP017,2024-03-17,Doença das membranas hialinas
+EP017,2024-03-17,Sépsis
+EP018,2024-03-17,Doença das membranas hialinas
+EP020,2024-03-17,Doença das membranas hialinas
+EP020,2024-03-17,ICTERÍCIA NEONATAL
+EP022,2024-03-17,Doença das membranas hialinas
+EP022,2024-03-17,Icterícia neonatal
+EP023,2024-03-17,Icterícia neonatal
+EP027,2024-03-17,Citomegalovírus
+EP017,2024-03-18,Anemia
+EP017,2024-03-18,Doença das membranas hialinas
+EP017,2024-03-18,Sépsis
+EP018,2024-03-18,Doença das membranas hialinas
+EP020,2024-03-18,Doença das membranas hialinas
+EP020,2024-03-18,Icterícia neonatal
+EP022,2024-03-18,Doença das membranas hialinas
+EP022,2024-03-18,Icterícia neonatal
+EP023,2024-03-18,Icterícia neonatal
+EP023,2024-03-18,Icterícia neonatal
+EP027,2024-03-18,Citomegalovírus
+EP017,2024-03-19,Anemia
+EP017,2024-03-19,Doença das membranas hialinas
+EP017,2024-03-19,Refluxo gastroesofágico
+EP018,2024-03-19,Doença das membranas hialinas
+EP020,2024-03-19,Doença das membranas hialinas
+EP020,2024-03-19,Icterícia neonatal
+EP022,2024-03-19,Doença das membranas hialinas
+EP022,2024-03-19,Icterícia neonatal
+EP023,2024-03-19,ICTERÍCIA NEONATAL
+EP025,2024-03-19,Citomegalovírus
+EP017,2024-03-20,Anemia
+EP017,2024-03-20,Doença das membranas hialinas
+EP017,2024-03-20,Refluxo gastroesofágico
+EP017,2024-03-20,Sépsis
+EP018,2024-03-20,Doença das membranas hialinas
+EP020,2024-03-20,Doença das membranas hialinas
+EP020,2024-03-20,Icterícia neonatal
+EP022,2024-03-20,Doença das membranas hialinas
+EP022,20/03/2024,Icterícia neonatal
+EP025,2024-03-20,
+EP026,2024-03-20,Icterícia neonatal
+EP027,2024-03-20,Citomegalovírus
+EP020,2024-03-21,Doenca das membranas hialinas
+EP020,2024-03-21,Icterícia neonatal
+EP020,2024-03-21,Icterícia neonatal
+EP022,2024-03-21,Doença das membranas hialinas
+EP025,2024-03-21,Citomegalovírus
+EP026,2024-03-21,Icterícia neonatal
+EP026,2024-03-21,Icterícia neonatal
+EP027,2024-03-21,Citomegalovírus
+EP020,2024-03-22,
+EP020,2024-03-22,Icterícia neonatal
+EP022,2024-03-22,Doença das membranas hialinas
+EP025,2024-03-22,Citomegalovírus
+EP026,2024-03-22,Doença das membranas hialinas
+EP026,2024-03-22,Icterícia neonatal
+EP027,2024-03-22,Citomegalovírus
+EP029,2024-03-22,Doença das membranas hialinas
+EP030,2024-03-22,Citomegalovírus
+EP020,2024-03-23,doença das membranas hialinas 
+EP020,2024-03-23,Icterícia neonatal
+EP025,2024-03-23,Citomegalovírus
+EP026,2024-03-23,Doença das membranas hialinas
+EP026,2024-03-23,Icterícia neonatal
+EP027,2024-03-23,Citomegalovírus
+EP029,2024-03-23,Doença das membranas hialinas
+EP020,2024-03-24,Doença das membranas hialinas
+EP020,2024-03-24,Icterícia neonatal
+EP022,2024-03-24,Doença das membranas hialinas
+EP025,2024-03-24,Citomegalovírus
+EP026,2024-03-24,Doença das membranas hialinas
+EP026,2024-03-24,Icterícia neonatal
+EP027,2024-03-24,Citomegalovírus
+ep029,2024-03-24,Doença das membranas hialinas
+EP030,2024-03-24,Citomegalovírus
+EP030,2024-03-24,Doença das membranas hialinas
+EP020,2024-03-25,Doença das membranas hialinas
+EP020,2024-03-25,Icterícia neonatal
+EP022,2024-03-25,Doença das membranas hialinas
+EP025,2024-03-25,CMV
+EP026,2024-03-25,DMH
+EP026,2024-03-25,Icterícia neonatal
+EP027,2024-03-25,Citomegalovírus
+EP029,2024-03-25,Doença das membranas hialinas
+EP030,2024-03-25,Citomegalovírus
+EP020,2024-03-26,Doença das membranas hialinas
+EP020,2024-03-26,Icterícia neonatal
+EP022,2024-03-26,Doença das membranas hialinas
+EP025,2024-02-30,Citomegalovírus
+EP026,2024-03-26,Doença das membranas hialinas
+EP027,2024-03-26,Citomegalovírus
+EP029,2024-03-26,Doença das membranas hialinas
+EP030,2024-03-26,Citomegalovírus
+EP032,2024-03-26,Doença das membranas hialinas
+EP032,2024-03-26,Sepsis
+EP020,2024-03-27,Doença das membranas hialinas
+EP020,2024-03-27,Icterícia neonatal
+EP022,2024-03-27,Doença das membranas hialinas
+EP025,2024-03-27,Citomegalovírus
+EP026,2024-03-27,Doença das membranas hialinas
+EP027,2024-03-27,Citomegalovírus
+EP032,2024-03-27,Doença das membranas hialinas
+EP032,2024-03-27,Sépsis
+EP020,2024-03-28,Anemia
+EP022,2024-03-28,Doença das membranas hialinas
+EP025,2024-03-28,Citomegalovírus
+EP026,2024-03-28,Doença das membranas hialinas
+EP027,2024-03-28,Citomegalovírus
+EP032,2024-03-28,Doenca das membranas hialinas
+EP032,2024-03-28,Sépsis
+EP026,2024-03-29,Doença das membranas hialinas
+EP027,2024-03-29,Citomegalovírus
+EP026,2024-03-30,Doença das membranas hialinas
+EP027,2024-03-30,Citomegalovírus
+EP032,2024-03-30,Doença das membranas hialinas
+EP032,2024-03-30,Sépsis
+EP033,2024-03-30,Doença das membranas hialinas
+EP026,2024-03-31,Doença das membranas hialinas
+EP027,2024-03-31,Citomegalovírus
+EP032,2024-03-31,Doença das membranas hialinas
+EP033,2024-03-31,Doença das membranas hialinas
+EP026,2024-04-01,Doença das membranas hialinas
+EP027,2024-04-01,Citomegalovírus
+EP033,2024-04-01,Doença das membranas hialinas
+EP026,2024-04-02,Doença das membranas hialinas
+EP027,2024-04-02,Citomegalovírus
+EP027,2024-04-02,Citomegalovírus
+EP033,2024-04-02,Doença das membranas hialinas
+EP026,2024-04-03,Doença das membranas hialinas
+EP027,2024-04-03,Citomegalovírus
+EP033,2024-04-03,Doença das membranas hialinas
+EP033,2024-04-03,Sépsis
+EP026,2024-04-04,Doença das membranas hialinas
+EP027,2024-04-04,Citomegalovírus
+EP033,2024-04-04,Doença das membranas hialinas
+EP033,2024-04-04,Sépsis
+EP034,2024-04-04,Doença das membranas hialinas
+EP020,2024-04-05,anemia
+EP026,2024-04-05,Doença das membranas hialinas
+EP027,2024-04-05,Citomegalovírus
+EP033,2024-04-05,Doença das membranas hialinas
+EP033,2024-04-05,Sépsis
+EP034,2024-04-05,Doença das membranas hialinas
+ EP020,2024-04-06,Anemia
+EP026,2024-04-06,Doença das membranas hialinas
+EP027,2024-04-06,Citomegalovírus
+EP034,2024-04-06,Doença das membranas hialinas
+EP026,2024-04-07,Doença das membranas hialinas
+EP027,2024-04-07,Citomegalovírus
+EP034,2024-04-07,Doença das membranas hialinas
+EP034,2024-04-07,Icterícia neonatal
+EP020,2024-04-08,Anemia
+EP026,2024-04-08,Displasia broncopulmonar
+EP027,2024-04-08,Citomegalovírus
+EP034,2024-04-08,Doenca das membranas hialinas
+EP034,2024-04-08,Icterícia neonatal
+EP020,2024-04-09,Anemia
+EP022,2024-04-09,Retinopatia da prematuridade
+EP026,2024-04-09,Displasia broncopulmonar
+EP034,2024-04-09,Doença das membranas hialinas
+EP034,2024-04-09,Icterícia neonatal
+EP026,2024-04-10,Displasia broncopulmonar
+EP034,2024-04-10,Doença das membranas hialinas
+EP034,2024-04-10,Icterícia neonatal
+EP 037,2024-04-10,Doença das membranas hialinas
+EP038,2024-04-10,Citomegalovírus
+EP038,2024-04-10,Doença das membranas hialinas
+EP026,2024-04-11,Displasia broncopulmonar
+EP034,2024-04-11,Doença das membranas hialinas
+EP034,2024-04-11,Icterícia neonatal
+EP036,2024-04-11,Icterícia neonatal
+EP037,2024-04-11,Doença das membranas hialinas
+EP038,2024-04-11,Doença das membranas hialinas
+EP039,2024-04-11,Doença das membranas hialinas
+EP040,2024-04-11,Doença das membranas hialinas
+EP026,2024-04-12,Displasia broncopulmonar
+EP034,2024-04-12,Doença das membranas hialinas
+EP034,2024-04-12,Icterícia neonatal
+EP036,2024-04-12,Ictericia neonatal
+EP037,2024-04-12,Icterícia neonatal
+EP039,2024-04-12,Doença das membranas hialinas
+EP040,2024-04-12,Doença das membranas hialinas
+EP041,2024-04-12,Citomegalovírus
+EP026,2024-04-13,Displasia Broncopulmonar
+EP034,2024-04-13,Doença das membranas hialinas
+EP034,2024-04-13,Icterícia neonatal
+EP034,2024-04-13,Icterícia neonatal
+EP037,2024-04-13,Icterícia neonatal
+EP039,2024-04-13,Doença das membranas hialinas
+EP040,2024-04-13,Doença das membranas hialinas
+EP041,2024-04-13,Icterícia neonatal
+EP042,2024-04-13,doença das membranas hialinas 
+EP043,2024-04-13,Doença das membranas hialinas
+EP026,2024-04-14,Displasia broncopulmonar
+EP034,2024-04-14,Doença das membranas hialinas
+EP034,2024-04-14,Icterícia neonatal
+EP037,2024-04-14,Icterícia neonatal
+EP039,2024-04-14,doença das membranas hialinas 
+EP040,2024-04-14,Doença das membranas hialinas
+EP041,2024-04-14,Icterícia neonatal
+EP042,2024-04-14,Doença das membranas hialinas
+EP043,14/04/2024,Doença das membranas hialinas
+EP026,2024-04-15,Displasia broncopulmonar
+EP034,2024-04-15,Doença das membranas hialinas
+EP034,2024-04-15,Icterícia neonatal
+EP037,2024-04-15,Icterícia neonatal
+EP038,2024-04-15,Icterícia neonatal
+EP039,2024-04-15,Doença das membranas hialinas
+EP040,2024-04-15,Doença das membranas hialinas
+EP041,2024-04-15,Ictericia neonatal
+EP042,2024-04-15,Doença das membranas hialinas
+EP043,2024-04-15,Doença das membranas hialinas
+EP026,2024-04-16,ANEMIA
+EP026,2024-04-16,Displasia broncopulmonar
+EP034,2024-04-16,Doença das membranas hialinas
+EP034,2024-04-16,Icterícia neonatal
+EP037,2024-04-16,
+EP038,2024-04-16,Ictericia neonatal
+EP039,2024-04-16,Doença das membranas hialinas
+EP040,2024-04-16,Doença das membranas hialinas
+EP041,2024-04-16,icterícia
+EP042,2024-04-16,Doença das membranas hialinas
+EP042,2024-04-16,Icterícia neonatal
+EP045,2024-04-16,Doença das membranas hialinas
+EP026,2024-04-17,Anemia
+EP026,2024-04-17,Displasia broncopulmonar
+EP034,2024-04-17,Doenca das membranas hialinas
+EP034,2024-04-17,Icterícia neonatal
+EP037,2024-04-17,Icterícia neonatal
+EP038,2024-04-17,Icterícia neonatal
+EP039,2024-04-17,Doença das membranas hialinas
+EP040,2024-04-17,Doença das membranas hialinas
+EP041,2024-04-17,Icterícia neonatal
+EP042,2024-04-17,Doença das membranas hialinas
+EP042,2024-04-17,Icterícia neonatal
+EP045,2024-04-17,Doença das membranas hialinas
+EP026,2024-04-18,Anemia
+EP026,2024-04-18,Displasia broncopulmonar
+EP034,2024-04-18,Doença das membranas hialinas
+EP034,2024-04-18,Icterícia neonatal
+EP037,2024-04-18,Icterícia neonatal
+EP038,2024-04-18,Icterícia neonatal
+EP039,2024-04-18,Doença das membranas hialinas
+EP040,2024-04-18,Doença das membranas hialinas
+EP041,2024-04-18,Icterícia neonatal
+EP042,2024-04-18,Doença das membranas hialinas
+EP042,2024-04-18,ICTERÍCIA NEONATAL
+EP045,2024-04-18,Doença das membranas hialinas
+EP045,2024-04-18,Icterícia neonatal
+EP046,2024-04-18,Anemia
+EP026,2024-04-19,Anemia
+EP026,2024-04-19,Displasia broncopulmonar
+EP034,2024-04-19,Doença das membranas hialinas
+EP034,2024-04-19,Icterícia neonatal
+EP039,2024-04-19,Doença das membranas hialinas
+EP040,2024-04-19,Doença das membranas hialinas
+EP041,2024-04-19,Icterícia neonatal
+EP042,2024-04-19,Doença das membranas hialinas
+EP042,2024-04-19,Icterícia neonatal
+EP045,2024-04-19,Doença das membranas hialinas
+EP045,2024-04-19,Icterícia neonatal
+EP046,2024-04-19,Anemia
+EP026,2024-04-20,Anemia
+EP026,2024-04-20,Displasia broncopulmonar
+EP034,2024-04-20,Doença das membranas hialinas
+EP034,2024-04-20,Icterícia neonatal
+EP040,2024-04-20,Doença das membranas hialinas
+EP041,2024-04-20,Icterícia neonatal
+EP042,20/04/2024,Doença das membranas hialinas
+EP042,2024-04-20,Icterícia neonatal
+EP045,2024-04-20,Doença das membranas hialinas
+EP045,2024-04-20,Icterícia neonatal
+EP046,2024-04-20,Anemia
