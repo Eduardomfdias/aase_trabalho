@@ -1,0 +1,12 @@
+CLAUDE.md
+.claude/
+.DS_Store
+
+# LaTeX auxiliares
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+crisp-dm.pdf
