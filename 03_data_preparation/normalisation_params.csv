@@ -1,0 +1,17 @@
+feature,mean,std
+sat_o2_mean,96.217862,1.327276
+sat_o2_std,1.693081,0.481138
+sat_o2_min,90.774687,3.323628
+sat_o2_max,99.405937,0.678094
+puls_rate_mean,142.468978,10.428254
+puls_rate_std,9.799694,2.931967
+puls_rate_min,117.917187,11.331296
+puls_rate_max,166.335625,13.170417
+perfusion_mean,1.178669,0.197661
+perfusion_std,0.395844,0.127054
+perfusion_min,0.550312,0.182377
+perfusion_max,2.690313,0.808717
+desat_count,3.3125,11.952696
+desat_pct,0.725031,1.724215
+carga_dessaturacao,4.311562,15.605143
+n_registos,203.625,196.976296
