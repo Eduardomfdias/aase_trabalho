@@ -1,158 +1,80 @@
-# Notas de Data Preparation — AASE 2026/27
+# Notas — Data Preparation
 
-Disciplina: Aprendizagem Automática em Sistemas Empresariais  
-Fase CRISP-DM: **Data Preparation**
+## Momento da previsão
 
----
+O alvo de regressão é calculado para **previsão antecipada**: com base nas primeiras 24 horas de internamento, prevemos a carga de dessaturação **posterior** a esse período.
 
-## O que foi feito e porquê
+## Definição operacional da carga
 
-### Regra fundamental
-Os ficheiros em `dados_aase_202627/` são **intocáveis**.  
-Toda a limpeza e transformação produz ficheiros novos em `03_data_preparation/`.
+**Carga de dessaturação**: Σ(90 − SpO₂) para todos os registos com SpO₂ < 90%.
 
----
+Esta fórmula mede a área de défice de saturação por observação (não diretamente o número de horas). Reflete a intensidade acumulada das dessaturações observadas no conjunto de registos analisado.
 
-## Passo 1 — Normalização de IDs de episódio
+> ⚠️ A unidade depende da resolução dos registos (tipicamente 1/hora). Deve ser confirmada com a equipa clínica antes de comunicar resultados.
 
-**Problema encontrado:** os dois datasets usam o mesmo campo `episodio` mas com formatação inconsistente:
+## Regras de parsing dos timestamps
 
-| ID no ficheiro original | Forma correcta |
+- `DD/MM/YYYY` → `date(YYYY, MM, DD)`
+- `YYYY-MM-DD` → padrão ISO
+- `YYYY-MM-DD` com mês > 12 (ex.: `2024-13-02`) → interpretado como `YYYY-DD-MM` (2024-02-13)
+
+Registos com timestamps inválidos (1 data não interpretável + 8 horas fora de [0,23]) são excluídos da janela temporal mas mantidos para as estatísticas agregadas do episódio.
+
+## Resolução de timestamps duplicados
+
+60 grupos `(episódio, data, hora)` tinham dois registos cada. Consolidados pela **mediana** de cada sinal vital. Decisão: a mediana é robusta a leituras espúrias e evita duplicar horas na janela temporal.
+
+## SpO₂: limpeza separada
+
+Para o cálculo da carga de dessaturação, apenas se exige que a **SpO₂ seja válida** [50,100]. Registos com FC ou perfusão inválidas mas SpO₂ válida contribuem para `desat_count`, `desat_pct` e `carga_desat_janela`.
+
+Para as estatísticas de FC e perfusão, exige-se que todos os três sinais sejam válidos.
+
+## Critério de elegibilidade (regressão 24h)
+
+Um episódio é elegível para `dataset_regressao_24h.csv` se:
+1. Tem pelo menos 1 registo com SpO₂ válida na janela inicial (primeiras 24 horas)
+2. Tem pelo menos 1 registo com SpO₂ válida após as primeiras 24 horas (para calcular o alvo)
+
+## Preditores permitidos
+
+Todos os preditores em `dataset_regressao_24h.csv` são calculados **exclusivamente** na janela das primeiras 24 horas:
+
+| Coluna | Descrição |
 |---|---|
-| `' EP011'` (espaço à esquerda) | `EP011` |
-| `'EP 016'` (espaço no meio) | `EP016` |
-| `'ep018'` (minúsculas) | `EP018` |
+| `n_registos_janela` | Nº total de registos na janela |
+| `n_spo2_validos` | Nº de registos com SpO₂ válida |
+| `n_all_validos` | Nº de registos com todos os sinais válidos |
+| `sat_o2_{mean,std,min,max}` | Estatísticas de SpO₂ na janela |
+| `puls_rate_{mean,std,min,max}` | Estatísticas de FC na janela |
+| `perfusion_{mean,std,min,max}` | Estatísticas de perfusão na janela |
+| `desat_count`, `desat_pct` | Nº e % de registos com SpO₂ < 90% na janela |
+| `carga_desat_janela` | Carga de dessaturação **na janela** (não é o alvo) |
 
-Impacto: sem correcção, os 58 "IDs únicos" do dataset de SV são inflados — vários são duplicados do mesmo episódio com formatação diferente.
+## Exclusões por fuga de informação
 
-**Solução:** `strip() + replace(' ', '') + upper()` aplicado em memória antes de qualquer processamento.
+As seguintes colunas **não são usadas como preditores** no modelo de regressão:
 
-**Resultado:**
+- `episodio` — identificador
+- `carga_dessaturacao_futura` — alvo
+- `n_registos_futuro` — informação do período futuro
+- `carga_dessaturacao` — carga total do episódio (não existe no dataset 24h)
+- `duracao_dias`, `pat_predominante`, `pat_label` — calculados com o episódio completo
 
-| Dataset | IDs únicos antes | IDs únicos depois |
+## Episódios elegíveis
+
+Após auditoria e limpeza:
+- Episódios com registos temporais válidos: 47
+- Episódios elegíveis para regressão (janela 24h + dados futuros): **43**
+- Episódios inelegíveis (sem dados futuros ou janela vazia): 4
+
+## Ficheiros produzidos
+
+| Ficheiro | Linhas | Descrição |
 |---|---|---|
-| Sinais Vitais | 58 | 47 |
-| Patologias | 45 | 39 |
-| Em ambos | — | 39 |
-
-IDs com espaços em SV: `EP011, EP016, EP018, EP019, EP023, EP026, EP027, EP034, EP036`  
-IDs com espaços em Pat: `EP009, EP018, EP020, EP029, EP037`
-
-**Ficheiros gerados:**
-
-- `sinais_vitais_limpo.csv` — cópia de `1_sinais_vitais_por_hora-1.csv` com IDs normalizados
-- `patologias_limpo.csv` — cópia de `3_patologias_por_dia-1.csv` com IDs normalizados
-
----
-
-## Passo 2 — Exclusão de registos inválidos
-
-**Estratégia escolhida: exclusão** (não imputação).
-
-**Justificação:** valores fora dos limiares fisiológicos representam erros de sensor/registo — não estados clínicos reais. Imputar esses valores introduziria ruído artificial nos modelos.
-
-| Campo | Limite válido | Excluídos |
-|---|---|---|
-| SpO₂ | [50, 100] % | 74 |
-| Freq. Pulso | [50, 350] bpm | 91 |
-| Perfusão | [0, 20] | 70 |
-| Hora | [0, 23] | 8 |
-
-Total excluído: **242 registos** (2,5% dos 9 857 brutos). Ficam **9 615 registos válidos**.
-
----
-
-## Passo 3 — Agregação por episódio
-
-Grão final: **1 linha = 1 episódio** (47 linhas no total).
-
-Para cada episódio foram calculadas as seguintes features a partir dos registos válidos:
-
-| Feature | Cálculo |
-|---|---|
-| `sat_o2_{mean,std,min,max}` | Estatísticas de SpO₂ sobre todos os registos do episódio |
-| `puls_rate_{mean,std,min,max}` | Estatísticas de FC |
-| `perfusion_{mean,std,min,max}` | Estatísticas de perfusão |
-| `desat_count` | Nº de registos com SpO₂ < 90% |
-| `desat_pct` | `desat_count / n_registos × 100` |
-| `carga_dessaturacao` | `Σ(90 − SpO₂)` para SpO₂ < 90% |
-| `duracao_dias` | Nº de dias distintos com registos |
-| `n_registos` | Total de registos válidos do episódio |
-
----
-
-## Passo 4 — Targets
-
-### Classificação — `pat_predominante` / `pat_label`
-
-Para cada episódio: a patologia com **mais registos dia×episódio** em `patologias_limpo.csv`.  
-Em caso de empate usa-se a primeira por ordem alfabética (determinístico).
-
-Distribuição de classes (após dedup de IDs):
-
-| Label | Patologia | Episódios |
-|---|---|---|
-| 0 | Doença das Membranas Hialinas | 24 |
-| 1 | Icterícia Neonatal | 7 |
-| 2 | Citomegalovírus | 4 |
-| 3 | Anemia | 2 |
-| 4 | Displasia Broncopulmonar | 1 |
-| 5 | Persistência do Canal Arterial | 1 |
-
-**8 episódios sem patologia:** EP007, EP012, EP021, EP028, EP031, EP035, EP044, EP047.  
-Estes ficam no `dataset_final.csv` com `pat_label = -1` mas são **excluídos do split** treino/teste.
-
-### Regressão — dois candidatos (a confirmar com docente)
-
-- `duracao_dias` — número de dias de internamento (enunciado original)
-- `carga_dessaturacao` — carga acumulada de dessaturação (definido no relatório BU)
-
-Ambos estão incluídos no `dataset_final.csv`.
-
----
-
-## Passo 5 — Normalização Z-score
-
-Transformação: `z = (x − μ) / σ`
-
-**Importante:** os parâmetros (μ e σ) são calculados **apenas no conjunto de treino** para evitar data leakage. O mesmo escalonamento é depois aplicado ao teste.
-
-Os parâmetros estão guardados em `normalisation_params.csv`.  
-As colunas normalizadas têm sufixo `_z` em `train.csv` e `test.csv`.
-
----
-
-## Passo 6 — Divisão treino/teste 80/20
-
-Estratificação por `pat_label` para preservar a distribuição de classes.  
-Episódios sem patologia não entram no split.
-
-| Conjunto | Episódios |
-|---|---|
-| Treino | 32 |
-| Teste | 7 |
-| **Total** | **39** |
-
-`SEED = 42` para reprodutibilidade.
-
----
-
-## Ficheiros produzidos — para que serve cada um
-
-| Ficheiro | Para que serve |
-|---|---|
-| `sinais_vitais_limpo.csv` | Cópia dos sinais vitais com IDs corrigidos (ficheiro intermédio) |
-| `patologias_limpo.csv` | Cópia das patologias com IDs corrigidos (ficheiro intermédio) |
-| `dataset_final.csv` | **Dataset principal** — 47 episódios, 20 colunas, features + targets |
-| `train.csv` | Treino dos modelos — 32 episódios, features originais + `_z` |
-| `test.csv` | Avaliação dos modelos — 7 episódios, mesmo formato do treino |
-| `metadata.csv` | Tabela de consulta label ↔ nome da patologia |
-| `normalisation_params.csv` | μ e σ do treino — necessários para normalizar dados novos na produção |
-
----
-
-## Questões em aberto
-
-1. **Alvo de regressão:** confirmar com docente se usar `duracao_dias` ou `carga_dessaturacao`.
-2. **8 episódios sem patologia:** investigar se há dados de patologia noutras fontes.
-3. **Desequilíbrio de classes:** DMH domina (24/39 = 62%). Avaliar se usar oversampling (SMOTE) ou pesos de classe na modelação.
+| `dataset_final.csv` | 47 | Agregado completo por episódio (para classificação/clustering) |
+| `dataset_regressao_24h.csv` | 43 | Preditores 24h + alvo futuro (para regressão) |
+| `train.csv` / `test.csv` | 32 / 7 | Split estratificado para classificação |
+| `sinais_vitais_limpo.csv` | 9 857 | IDs normalizados, todos os registos |
+| `patologias_limpo.csv` | 696 | IDs normalizados |
+| `normalisation_params.csv` | 14 | Parâmetros z-score do conjunto de treino |
