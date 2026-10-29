@@ -30,7 +30,7 @@
 - [x] §7 Relação entre datasets (cobertura cruzada)
 - [x] §8 Co-variação (SV por patologia, co-ocorrência, duração por patologia)
 - [x] §9 Estrutura das entidades (duração, boxplots, variabilidade intra-episódio)
-- [ ] Relatório Data Understanding escrito
+- [x] Relatório Data Understanding escrito
 
 #### Data Preparation
 - [x] Definir variável alvo para regressão (carga de dessaturação futura — Σ(90−SpO₂) para SpO₂<90% após 24h)
@@ -43,7 +43,7 @@
 - [x] Normalização Z-score (calculada apenas no treino — `normalisation_params.csv`)
 - [x] Divisão treino/teste (80/20 para classificação em `train.csv`/`test.csv`; split interno no notebook de regressão)
 - [x] Datasets finais: `dataset_final.csv` (47 ep.) e `dataset_regressao_24h.csv` (43 ep.)
-- [ ] Relatório Data Preparation escrito
+- [x] Relatório Data Preparation escrito
 
 ---
 

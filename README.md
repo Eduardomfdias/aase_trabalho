@@ -50,7 +50,7 @@ Registos horários de monitorização por episódio de internamento.
 | `puls_rate` | Frequência de pulso (bpm) |
 | `perfusion` | Índice de perfusão |
 
-- **9 857 registos brutos** · **58 episódios** · período: janeiro–abril 2024
+- **9 857 registos brutos** · **47 episódios pseudonimizados** (após normalização de IDs) · período: janeiro–abril 2024
 - Válidos após limpeza: **9 615** (97,5%) · excluídos: 242 (valores fora dos limites fisiológicos)
 
 ### `3_patologias_por_dia-1.csv`
@@ -63,7 +63,7 @@ Patologias registadas por episódio e por dia de internamento.
 | `data` | Data do registo |
 | `patologia` | Diagnóstico/patologia registada |
 
-- **696 registos** · **14 patologias distintas** após normalização
+- **696 registos** · **14 patologias distintas** nos dados brutos após normalização; **6 classes** após critério de patologia predominante por episódio elegível
 
 ---
 

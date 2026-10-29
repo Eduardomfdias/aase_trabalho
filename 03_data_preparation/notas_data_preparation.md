@@ -33,8 +33,10 @@ Para as estatísticas de FC e perfusão, exige-se que todos os três sinais seja
 ## Critério de elegibilidade (regressão 24h)
 
 Um episódio é elegível para `dataset_regressao_24h.csv` se:
-1. Tem pelo menos 1 registo com SpO₂ válida na janela inicial (primeiras 24 horas)
-2. Tem pelo menos 1 registo com SpO₂ válida após as primeiras 24 horas (para calcular o alvo)
+1. Tem **≥ 5 registos** com SpO₂ válida na janela inicial (primeiras 24 horas)
+2. Tem **≥ 3 registos** com SpO₂ válida após as primeiras 24 horas (para calcular o alvo)
+
+Limiar anterior (≥1) foi considerado demasiado permissivo: EP018 e EP042 tinham apenas 1 registo na janela inicial, insuficiente para caracterizar o estado fisiológico. O novo limiar exclui estes episódios.
 
 ## Preditores permitidos
 
@@ -65,15 +67,30 @@ As seguintes colunas **não são usadas como preditores** no modelo de regressã
 
 Após auditoria e limpeza:
 - Episódios com registos temporais válidos: 47
-- Episódios elegíveis para regressão (janela 24h + dados futuros): **43**
-- Episódios inelegíveis (sem dados futuros ou janela vazia): 4
+- Episódios elegíveis para regressão (janela 24h + dados futuros, critério ≥5/≥3): **≤43** (recalcular após execução)
+- Episódios inelegíveis (sem cobertura suficiente): ≥4 (EP010, EP024, EP029, EP030 + EP018, EP042)
+
+> Nota: EP018 e EP042 passavam o critério anterior (≥1 registo) mas são excluídos pelo novo critério (≥5 registos iniciais).
+
+## Limitações e decisões metodológicas
+
+### Âncora temporal
+- t₀ = primeiro timestamp válido do episódio (não a hora de admissão clínica)
+- A hora de admissão não está disponível nos dados
+- Esta limitação deve constar no relatório de Data Understanding
+
+### Variável-alvo: carga de dessaturação
+- Fórmula: Σ(90 − SpO₂) para cada registo com SpO₂ < 90%, na janela futura
+- Unidade: índice acumulado de défice de saturação (adimensional)
+- Limitação: sensível à frequência de registo — episódios com mais observações acumulam mais carga mesmo com dessaturações menos severas
+- Esta limitação deve ser assumida explicitamente no relatório de Modeling
 
 ## Ficheiros produzidos
 
 | Ficheiro | Linhas | Descrição |
 |---|---|---|
 | `dataset_final.csv` | 47 | Agregado completo por episódio (para classificação/clustering) |
-| `dataset_regressao_24h.csv` | 43 | Preditores 24h + alvo futuro (para regressão) |
+| `dataset_regressao_24h.csv` | ≤43 | Preditores 24h + alvo futuro (regressão); recalcular após novo critério |
 | `train.csv` / `test.csv` | 32 / 7 | Split estratificado para classificação |
 | `sinais_vitais_limpo.csv` | 9 857 | IDs normalizados, todos os registos |
 | `patologias_limpo.csv` | 696 | IDs normalizados |
