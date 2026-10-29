@@ -19,7 +19,7 @@ aase_trabalho/
 │   ├── validacao_data_preparation.ipynb      ← testes de validação ✅
 │   ├── notas_data_preparation.md             ← decisões documentadas
 │   ├── dataset_final.csv                     ← 47 episódios, agregado completo
-│   ├── dataset_regressao_24h.csv             ← 43 episódios, preditores 24h + alvo futuro
+│   ├── dataset_regressao_24h.csv             ← 40 episódios, preditores 24h + alvo futuro
 │   ├── train.csv / test.csv                  ← split para classificação (32/7)
 │   └── normalisation_params.csv             ← parâmetros z-score do treino
 ├── 04_modeling/

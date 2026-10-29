@@ -67,10 +67,20 @@ As seguintes colunas **não são usadas como preditores** no modelo de regressã
 
 Após auditoria e limpeza:
 - Episódios com registos temporais válidos: 47
-- Episódios elegíveis para regressão (janela 24h + dados futuros, critério ≥5/≥3): **≤43** (recalcular após execução)
-- Episódios inelegíveis (sem cobertura suficiente): ≥4 (EP010, EP024, EP029, EP030 + EP018, EP042)
+- Episódios elegíveis para regressão (janela 24h + dados futuros, critério ≥5/≥3): **40**
+- Episódios inelegíveis (sem cobertura suficiente): 7
 
-> Nota: EP018 e EP042 passavam o critério anterior (≥1 registo) mas são excluídos pelo novo critério (≥5 registos iniciais).
+| Episódio | Motivo de exclusão |
+|---|---|
+| EP010 | futuro SpO₂ insuficiente (0 < 3) |
+| EP018 | janela SpO₂ insuficiente (1 < 5) |
+| EP024 | futuro SpO₂ insuficiente (0 < 3) |
+| EP028 | futuro SpO₂ insuficiente (2 < 3) |
+| EP029 | futuro SpO₂ insuficiente (0 < 3) |
+| EP030 | janela SpO₂ insuficiente (4 < 5) e futuro insuficiente (0 < 3) |
+| EP042 | janela SpO₂ insuficiente (1 < 5) |
+
+> Nota: EP018, EP028 e EP042 estavam presentes no ficheiro gerado por versões anteriores do código (critério ≥1), e foram agora correctamente excluídos após regeneração com o critério ≥5/≥3.
 
 ## Limitações e decisões metodológicas
 
@@ -90,7 +100,7 @@ Após auditoria e limpeza:
 | Ficheiro | Linhas | Descrição |
 |---|---|---|
 | `dataset_final.csv` | 47 | Agregado completo por episódio (para classificação/clustering) |
-| `dataset_regressao_24h.csv` | ≤43 | Preditores 24h + alvo futuro (regressão); recalcular após novo critério |
+| `dataset_regressao_24h.csv` | 40 | Preditores 24h + alvo futuro (regressão); critério ≥5/≥3 aplicado |
 | `train.csv` / `test.csv` | 32 / 7 | Split estratificado para classificação |
 | `sinais_vitais_limpo.csv` | 9 857 | IDs normalizados, todos os registos |
 | `patologias_limpo.csv` | 696 | IDs normalizados |
