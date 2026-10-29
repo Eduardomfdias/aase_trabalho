@@ -1,5 +1,5 @@
 episodio,n_registos,sat_o2_mean,sat_o2_std,sat_o2_min,sat_o2_max,puls_rate_mean,puls_rate_std,puls_rate_min,puls_rate_max,perfusion_mean,perfusion_std,perfusion_min,perfusion_max,desat_count,desat_pct,duracao_dias,carga_dessaturacao,pat_predominante,pat_label
-EP001,548,93.9073,1.9901,85.82,99.79,158.6916,6.5216,137.43,175.16,1.1691,0.3305,0.49,2.59,22,4.0146,24,25.26,Displasia Broncopulmonar,4
+EP001,548,93.9073,1.9901,85.82,99.79,158.6916,6.5216,137.43,175.16,1.1691,0.3305,0.49,2.59,22,4.0146,24,25.26,Refluxo Gastroesofágico,4
 EP002,55,94.8991,1.9164,90.2,98.12,142.0273,6.1949,128.84,154.43,1.3735,0.3199,0.89,2.44,0,0.0,4,0,Citomegalovírus,2
 EP003,128,97.512,1.2535,94.3,99.82,162.7316,8.3614,136.67,184.92,1.186,0.5062,0.39,3.84,0,0.0,6,0,Icterícia Neonatal,1
 EP004,490,97.5949,1.3304,92.45,99.94,148.0043,12.5261,107.57,187.63,1.508,0.4807,0.47,3.57,0,0.0,23,0,Doença das Membranas Hialinas,0

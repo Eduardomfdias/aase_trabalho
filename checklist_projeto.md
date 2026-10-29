@@ -10,7 +10,7 @@
 
 - [x] Definir objetivos de negócio
 - [x] Definir objetivos de data mining
-  - [x] **Regressão** — prever duração do internamento (length of stay)
+  - [x] **Regressão** — prever carga de dessaturação futura (janela 24h → restante internamento)
   - [x] **Classificação** — prever patologia
   - [x] **Clustering** — agrupar doentes por condição clínica
 - [x] Relatório entregue (`01_business_understanding/business_understanding.pdf`)
@@ -33,28 +33,28 @@
 - [ ] Relatório Data Understanding escrito
 
 #### Data Preparation
-- [ ] Definir variável alvo para regressão (duração do internamento)
-- [ ] Definir variável alvo para classificação (patologia — simplificar para top N?)
-- [ ] Tratamento de valores inválidos (242 registos — excluir ou imputar?)
-- [ ] Feature engineering
-  - [ ] Agregar sinais vitais por episódio (média, DP, min, max, % dessaturações)
-  - [ ] Calcular duração de internamento por episódio
-  - [ ] Codificar patologias (one-hot ou label encoding)
-- [ ] Normalização / standardização das variáveis numéricas
-- [ ] Divisão treino / teste (ex: 80/20 estratificado)
-- [ ] Dataset final para modelação (`03_data_preparation/dataset_final.csv`)
+- [x] Definir variável alvo para regressão (carga de dessaturação futura — Σ(90−SpO₂) para SpO₂<90% após 24h)
+- [x] Definir variável alvo para classificação (patologia predominante por episódio)
+- [x] Tratamento de valores inválidos (242 registos excluídos — limites fisiológicos)
+- [x] Feature engineering
+  - [x] Agregar sinais vitais por episódio (média, DP, min, max, % dessaturações)
+  - [x] Janela temporal 24h para regressão (`dataset_regressao_24h.csv`)
+  - [x] Codificar patologias (label encoding por frequência)
+- [x] Normalização Z-score (calculada apenas no treino — `normalisation_params.csv`)
+- [x] Divisão treino/teste (80/20 para classificação em `train.csv`/`test.csv`; split interno no notebook de regressão)
+- [x] Datasets finais: `dataset_final.csv` (47 ep.) e `dataset_regressao_24h.csv` (43 ep.)
 - [ ] Relatório Data Preparation escrito
 
 ---
 
 ### Entrega 3 — Modeling & Evaluation · ⏰ semana 14/12/2026
 
-#### Modelação — Regressão (prever length of stay)
-- [ ] Baseline (média global como predição trivial)
-- [ ] Modelo 1 — Regressão Linear
-- [ ] Modelo 2 — Árvore de Decisão (regressão)
-- [ ] Modelo 3 — Random Forest / outro ensemble
-- [ ] Métricas: MAE, RMSE, R²
+#### Modelação — Regressão (prever carga de dessaturação futura)
+- [x] Baseline (mediana do treino)
+- [x] Modelo 1 — Regressão Linear (OLS via lstsq)
+- [x] Modelo 2 — Ridge (λ=10.0)
+- [ ] Modelo 3 — adicional (ex: Random Forest)
+- [x] Métricas: MAE, RMSE, R² (treino e teste)
 
 #### Modelação — Classificação (prever patologia)
 - [ ] Baseline (classe maioritária)
