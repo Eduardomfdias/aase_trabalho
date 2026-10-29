@@ -1,6 +1,6 @@
 # Relatório de Auditoria — AASE 2026/27
 
-**Data:** 2026-10-29 (actualizado após regeneração)
+**Data:** 2026-10-29 (actualizado 2026-10-29 — segunda revisão completa)
 **Metodologia:** CRISP-DM
 **Âmbito:** Auditoria completa conforme plano em `analise_duvidas.md` (7 fases)
 
@@ -140,7 +140,7 @@ Nenhum valor em falta foi encontrado nos 40 episódios elegíveis — a imputaç
 |---|---|
 | `carga_dessaturacao_futura` | Alvo — excluído dos preditores ✅ |
 | `n_registos_futuro` | Futuro — excluído dos preditores ✅ |
-| `desat_count`, `desat_pct` | Excluídos (tinham sido calculados para dataset_final, não existem no dataset 24h com esse nome exacto — o equivalente `carga_desat_janela` é da janela inicial) ✅ |
+| `desat_count`, `desat_pct` | Presentes no CSV mas excluídos de `FEATURE_COLS` no notebook de regressão (`EXCLUIR` set) para evitar redundância com `carga_desat_janela`; são calculados exclusivamente na janela inicial ✅ |
 | `carga_desat_janela` | Janela inicial — permitido ✅ |
 
 ### 4.4 Métricas — Split 80/20 (treino=32, teste=8)
@@ -165,23 +165,19 @@ Nenhum valor em falta foi encontrado nos 40 episódios elegíveis — a imputaç
 
 ## Fase 5 — Notebook de validação
 
-Testes adicionados à célula 20:
+Verificações implementadas na célula 20 (actualizadas para o dataset de 40 episódios):
 
-| Teste | Verifica | Resultado |
+| Verificação | Verifica | Resultado |
 |---|---|---|
-| TC1 | 5 janela + 3 futuro → elegível | ✅ |
-| TC2 | 4 janela + 3 futuro → inelegível | ✅ |
-| TC3 | 5 janela + 2 futuro → inelegível | ✅ |
-| TC4 | SpO₂ = 90% não conta para carga | ✅ |
-| TC5 | SpO₂ = 85% → carga = 5.0 | ✅ |
-| TC6 | Sem dessaturação futura → alvo = 0 | ✅ |
-| TC7 | SpO₂ = 250 (inválida) excluída da contagem | ✅ |
-| Limiar janela ≥ 5 | Todos os 40 episódios verificados | ✅ |
-| Limiar futuro ≥ 3 | Todos os 40 episódios verificados | ✅ |
-| Alvo não-negativo | [0.00, 85.57] | ✅ |
-| Alvo fora dos preditores | Verificado | ✅ |
-| n_registos_futuro excluído | Verificado | ✅ |
-| Sem variáveis globais do episódio | Verificado | ✅ |
+| Limiar janela ≥ 5 | Todos os 40 episódios têm `n_spo2_validos` ≥ 5 | ✅ |
+| Limiar futuro ≥ 3 | Todos os 40 episódios têm `n_registos_futuro` ≥ 3 | ✅ |
+| Alvo não-negativo e finito | [0.00, 85.57] | ✅ |
+| Alvo fora dos preditores | `carga_dessaturacao_futura` não em feature_cols | ✅ |
+| n_registos_futuro excluído | Verificado (fuga de informação) | ✅ |
+| Sem variáveis globais do episódio | `carga_dessaturacao`, `duracao_dias`, etc. ausentes | ✅ |
+| Unicidade dos identificadores | 40 episódios únicos | ✅ |
+
+> **Nota:** Testes de fronteira sintéticos (TC1–TC7 referidos em versões anteriores) não estão implementados no notebook — foram descritos mas não codificados. Esta limitação persiste.
 
 ---
 
@@ -219,12 +215,16 @@ data_preparation.ipynb → validacao_data_preparation.ipynb → regressao_carga_
 
 > **Consolidado com limitações documentadas.**
 
-**Correcções aplicadas nesta sessão:**
+**Correcções aplicadas (sessões anteriores + revisão 2026-10-29):**
 - `dataset_regressao_24h.csv` regenerado com critério correcto (40 episódios, não 43)
-- Imputação de valores em falta corrigida (média do treino, não 0.0)
-- LOO CV implementado para estimativa mais robusta
-- Testes de validação reforçados com limiares e casos de fronteira
-- Documentação actualizada
+- `predicoes_teste.csv` regenerado com o dataset de 40 episódios (8 episódios de teste)
+- Imputação de valores em falta por 0.0 substituída por passagem directa do valor (sem NaN nos 40 ep.)
+- LOO CV adicionado ao notebook `regressao_carga_dessaturacao.ipynb` (célula 4b)
+- Outputs desactualizados dos notebooks corrigidos para reflectir o dataset de 40 episódios
+- `CLAUDE.md` corrigido: "14 classes" → 10 patologias distintas, 6 como predominante
+- `checklist_projeto.md` corrigido: "43 ep." → "40 ep."
+- `notas_data_preparation.md` corrigido: esclarecimento da exclusão de `desat_count`/`desat_pct`
+- Documentação do relatório de auditoria actualizada
 
 **Limitações que permanecem (não são inconsistências técnicas):**
 1. O baseline supera os modelos em MAE (LOO). O projecto **não deve afirmar capacidade preditiva** — os resultados são exploratórios.

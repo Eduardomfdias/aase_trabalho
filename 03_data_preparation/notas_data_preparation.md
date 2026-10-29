@@ -50,8 +50,9 @@ Todos os preditores em `dataset_regressao_24h.csv` são calculados **exclusivame
 | `sat_o2_{mean,std,min,max}` | Estatísticas de SpO₂ na janela |
 | `puls_rate_{mean,std,min,max}` | Estatísticas de FC na janela |
 | `perfusion_{mean,std,min,max}` | Estatísticas de perfusão na janela |
-| `desat_count`, `desat_pct` | Nº e % de registos com SpO₂ < 90% na janela |
 | `carga_desat_janela` | Carga de dessaturação **na janela** (não é o alvo) |
+
+> **Nota:** `desat_count` e `desat_pct` estão presentes no CSV mas são excluídos de `FEATURE_COLS` no notebook de regressão para evitar redundância com `carga_desat_janela`, que subsume essa informação de forma mais informativa.
 
 ## Exclusões por fuga de informação
 
@@ -60,6 +61,7 @@ As seguintes colunas **não são usadas como preditores** no modelo de regressã
 - `episodio` — identificador
 - `carga_dessaturacao_futura` — alvo
 - `n_registos_futuro` — informação do período futuro
+- `desat_count`, `desat_pct` — redundantes com `carga_desat_janela`
 - `carga_dessaturacao` — carga total do episódio (não existe no dataset 24h)
 - `duracao_dias`, `pat_predominante`, `pat_label` — calculados com o episódio completo
 

@@ -42,7 +42,7 @@
   - [x] Codificar patologias (label encoding por frequência)
 - [x] Normalização Z-score (calculada apenas no treino — `normalisation_params.csv`)
 - [x] Divisão treino/teste (80/20 para classificação em `train.csv`/`test.csv`; split interno no notebook de regressão)
-- [x] Datasets finais: `dataset_final.csv` (47 ep.) e `dataset_regressao_24h.csv` (43 ep.)
+- [x] Datasets finais: `dataset_final.csv` (47 ep.) e `dataset_regressao_24h.csv` (40 ep.)
 - [x] Relatório Data Preparation escrito
 
 ---
