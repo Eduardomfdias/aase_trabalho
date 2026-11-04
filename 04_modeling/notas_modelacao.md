@@ -75,16 +75,16 @@
 | 4 | 381.70 | 0.1792 | 1.4352 |
 | 5 | 335.63 | 0.1448 | 1.4155 |
 
-### 3.2 Caracterização Clínica dos Perfis ($k=2$)
-- **Cluster 0 — Perfil Fisiológico Estável (37 episódios, 78,7%):**
+### 3.2 Caracterização Descritiva dos Perfis ($k=2$)
+- **Cluster 0 — Perfil com saturação média mais elevada (37 episódios, 78,7%):**
   - SpO₂ média: 96,66%
   - Frequência Cardíaca média: 138,9 bpm
   - Índice de Perfusão médio: 1,22
   - % Dessaturação média: 0,09%
-- **Cluster 1 — Perfil Fisiológico de Risco / Instável (10 episódios, 21,3%):**
+- **Cluster 1 — Perfil com maior frequência de dessaturações (10 episódios, 21,3%):**
   - SpO₂ média: 94,86%
-  - Frequência Cardíaca média: 152,8 bpm (taquicardia reativa)
+  - Frequência Cardíaca média: 152,8 bpm
   - Índice de Perfusão médio: 1,12
-  - % Dessaturação média: 2,56% (quase 30× superior ao grupo estável)
+  - % Dessaturação média: 2,56% (taxa substancialmente superior)
 
-**Conclusão Clínica:** O clustering não supervisionado cumpre com êxito o objetivo de estratificação de risco (ON1/ODM1), identificando uma separação clinicamente coerente entre recém-nascidos fisiologicamente estáveis e recém-nascidos com episódios frequentes de compromisso respiratório e instabilidade hemodinâmica.
+> **Ressalva Metodológica:** Os clusters representam agrupamentos estatísticos exploratórios obtidos através do algoritmo k-Means. A separação observada é modesta (Silhueta = 0.2263), pelo que os perfis identificados não devem ser interpretados como diagnósticos clínicos, categorias de risco validadas ou indicadores autónomos de estabilidade clínica.

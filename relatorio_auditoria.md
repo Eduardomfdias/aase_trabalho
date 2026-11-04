@@ -99,11 +99,11 @@ Distribuição de Classes: DMH (24, 61.5%), Icterícia (7, 17.9%), CMV (4, 10.3%
 
 - **Algoritmo:** K-Means sobre 14 atributos padronizados.
 - **Solução Ótima:** $k=2$ (Coeficiente de Silhueta = 0.2263; Davies-Bouldin = 1.6246).
-- **Perfis Clínicos Identificados:**
-  - **Cluster 0 (Estável — 37 episódios, 78,7%):** SpO₂ média = 96,66%, FC = 138,9 bpm, % Dessaturação = 0,09%.
-  - **Cluster 1 (Instável / Risco — 10 episódios, 21,3%):** SpO₂ média = 94,86%, FC = 152,8 bpm, % Dessaturação = 2,56% (quase 30× superior).
+- **Perfis Fisiológicos Descritivos:**
+  - **Cluster 0 (Perfil com saturação média mais elevada — 37 episódios, 78,7%):** SpO₂ média = 96,66%, FC = 138,9 bpm, % Dessaturação = 0,09%.
+  - **Cluster 1 (Perfil com maior frequência de dessaturações — 10 episódios, 21,3%):** SpO₂ média = 94,86%, FC = 152,8 bpm, % Dessaturação = 2,56%.
 
-*Interpretação:* O agrupamento cumpre integralmente o objetivo ON1/ODM1, segregando os recém-nascidos segundo a sua estabilidade biológica de forma clinicamente relevante.
+*Interpretação:* O agrupamento cumpre o objetivo exploratório ON1/ODM1. Ressalva metodológica: os clusters representam agrupamentos estatísticos exploratórios obtidos através do algoritmo k-Means com separação modesta (Silhueta = 0.2263), pelo que não devem ser interpretados como diagnósticos clínicos ou categorias de risco validadas.
 
 ---
 

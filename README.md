@@ -65,7 +65,7 @@ aase_trabalho/
 |---|---|---|---|
 | **Regressão** | `carga_dessaturacao_futura`: $\sum (90 - \text{SpO}_2)$ para SpO₂ < 90% após 24h | `dataset_regressao_24h.csv` (n=40) | **Baseline da Mediana** (MAE = 3.451, RMSE = 14.253) |
 | **Classificação** | `pat_predominante`: previsão da patologia por perfil de sinais | `dataset_final.csv` (n=39) | **Baseline Maioritária** (Accuracy = 61.54%) |
-| **Clustering** | Estratificação de perfis fisiológicos de risco | `dataset_final.csv` (n=47) | **k-Means ($k=2$)**: Estável (78.7%) vs Instável (21.3%) |
+| **Clustering** | Agrupamento de perfis fisiológicos exploratórios | `dataset_final.csv` (n=47) | **k-Means ($k=2$)**: Maior saturação (78.7%) vs Maior dessaturação (21.3%) |
 
 ---
 

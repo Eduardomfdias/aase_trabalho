@@ -65,11 +65,11 @@
 - [x] Validação Leave-One-Out (LOO CV, n=39) e teste 80/20 (n=7)
 - [x] Métricas calculadas: Accuracy, F1-macro, F1-weighted e Matrizes de Confusão
 
-### Modelação — Clustering (estratificação de perfis clínicos)
+### Modelação — Clustering (perfis exploratórios)
 - [x] Padronização Z-score e redução dimensional PCA (2 componentes)
 - [x] K-Means avaliado para $k \in [2, 5]$ (Inércia, Silhueta, Davies-Bouldin)
 - [x] Seleção de $k=2$ (Silhueta = 0.2263, Davies-Bouldin = 1.6246)
-- [x] Caracterização clínica dos grupos: Perfil Estável (78,7%) vs Perfil Instável/Dessaturação (21,3%)
+- [x] Caracterização descritiva dos grupos: Perfil com saturação média mais elevada (78,7%) vs Perfil com maior frequência de dessaturações (21,3%), com ressalva metodológica sobre a separação modesta
 
 ### Avaliação e Validação Global
 - [x] Comparação de modelos por abordagem com análise crítica dos resultados
