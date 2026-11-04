@@ -201,7 +201,7 @@ Os episódios estão identificados apenas por códigos internos.
 | Dessaturação | SpO₂ abaixo de 90%. |
 | FC | Número de contrações cardíacas por minuto. Referência neonatal: 100–180 bpm. |
 | IP | Medida da qualidade da circulação periférica. |
-| Carga de dessaturação | Número de horas com SpO₂ < 90% ao longo do internamento. |
+| Carga de dessaturação | Índice acumulado de défice de saturação (Σ(90 − SpO₂) para SpO₂ < 90%) por registo horário, adotado como aproximação operacional à duração e severidade da hipoxemia face à natureza discreta das medições. |
 | Patologia predominante | Diagnóstico clínico principal registado para o episódio. |
 | Artefacto de medição | Registo tecnicamente inválido por falha de sensor, mobilização ou interferência. |
 | Perfil de risco | Conjunto de características fisiológicas para antecipar probabilidade de eventos adversos. |
@@ -235,7 +235,7 @@ Induzir automaticamente grupos de episódios com base nos indicadores fisiológi
 **ODM2 — Regressão: Estimar a carga de dessaturação do internamento (aprendizagem supervisionada)**
 *Objetivo de negócio: ON2*
 
-Construir um modelo que estime a carga de dessaturação (horas com SpO₂ < 90%) a partir de dados fisiológicos disponíveis num momento inicial.
+Construir um modelo que estime a carga de dessaturação futura (índice acumulado de défice com SpO₂ < 90%) no restante internamento a partir de dados fisiológicos disponíveis nas primeiras 24 horas de monitorização (ancoradas no primeiro timestamp válido).
 
 *Questão clínica:* É possível estimar a carga de dessaturação que um recém-nascido poderá acumular durante o internamento, para apoiar a avaliação do risco respiratório?
 

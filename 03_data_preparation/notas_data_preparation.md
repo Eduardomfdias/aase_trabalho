@@ -61,6 +61,7 @@ As seguintes colunas **não são usadas como preditores** no modelo de regressã
 - `episodio` — identificador
 - `carga_dessaturacao_futura` — alvo
 - `n_registos_futuro` — informação do período futuro
+- `n_spo2_futuro_validos` — contagem de SpO₂ futura (critério de elegibilidade)
 - `desat_count`, `desat_pct` — redundantes com `carga_desat_janela`
 - `carga_dessaturacao` — carga total do episódio (não existe no dataset 24h)
 - `duracao_dias`, `pat_predominante`, `pat_label` — calculados com o episódio completo

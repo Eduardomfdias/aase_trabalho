@@ -1,235 +1,119 @@
-# Relatório de Auditoria — AASE 2026/27
+# Relatório de Auditoria e Correção Integral — AASE 2026/27
 
-**Data:** 2026-10-29 (actualizado 2026-10-29 — segunda revisão completa)
-**Metodologia:** CRISP-DM
-**Âmbito:** Auditoria completa conforme plano em `analise_duvidas.md` (7 fases)
+**Data:** 2026-11-04 (Auditoria e correção técnica e metodológica profunda)  
+**Projeto:** NeoData Clinics — Análise de Sinais e Episódios Clínicos Neonatais  
+**Metodologia:** CRISP-DM  
+**Repositório:** `Eduardomfdias/aase_trabalho`  
+**Branch de trabalho:** `fix/auditoria-e-correcao-integral`
 
 ---
 
-## Tabela de discrepâncias
+## 1. Sumário Executivo do Diagnóstico
 
-| # | Ficheiro | Problema | Evidência | Impacto | Correcção | Estado |
+A auditoria exaustiva ao repositório confirmou a necessidade de retificações metodológicas, técnicas e de documentação para assegurar a reprodutibilidade integral e a defensabilidade académica do projeto. Os principais problemas diagnosticados e sanados foram:
+
+1. **Critérios de Elegibilidade Temporal (Regressão 24h):** O pipeline anterior utilizava `n_registos_futuro` (contagem total de linhas futuras) em testes de validação, em vez de exigir contagem explícita de medições de SpO₂ biologicamente válidas. Foi introduzida a variável `n_spo2_futuro_validos` no dataset e nas asserções de teste, garantindo o cumprimento estrito dos limiares clínicos: $\ge 5$ SpO₂ válidas na janela inicial de 24h e $\ge 3$ SpO₂ válidas no período futuro.
+2. **Reconciliação Rigorosa de Episódios:**
+   - Sinais vitais brutos continham 58 identificadores textuais, que colapsam em **47 episódios únicos** após normalização (`norm_ep`: remoção de espaços e conversão para maiúsculas).
+   - Patologias brutas continham 45 variantes, que colapsam em **39 episódios únicos**.
+   - A interseção é de exatamente 39 episódios ($39 \cap 47 = 39$).
+   - Existem exatamente **8 episódios** com sinais vitais mas sem patologias registadas (`EP007`, `EP012`, `EP021`, `EP028`, `EP031`, `EP035`, `EP044`, `EP047`).
+   - Todos os 47 episódios integram o `dataset_final.csv`; 40 episódios cumprem os critérios de elegibilidade para o `dataset_regressao_24h.csv`.
+3. **Reconciliação Clínica de Patologias (EP001):**
+   - Esclarecida a divergência histórica entre Refluxo Gastroesofágico e Displasia Broncopulmonar.
+   - No episódio `EP001`, a harmonização clínica correta de `'Refluxo gastroesofágico'` (24) + `'refluxo gastroesofagico'` (1) + `'RGE'` (1) totaliza **26 registos**, superando a Displasia Broncopulmonar (23 + 2 = **25 registos**).
+   - A Displasia Broncopulmonar foi superada em todos os episódios em que esteve presente, resultando em 0 episódios como patologia predominante no `metadata.csv` (comportamento correto da regra de predominância).
+4. **Semântica e Cálculo de `duracao_dias`:**
+   - O cálculo anterior operava sobre strings brutas de data, acumulando representações distintas do mesmo dia de calendário (ex.: `13/02/2024` e `2024-02-13`) e inflando a contagem em 12 episódios.
+   - O código foi corrigido para interpretar datas de calendário via `parse_data`, e a variável foi rigorosamente documentada como o número de datas distintas com registos (proxy operacional de monitorização, já que a admissão e alta oficiais não constam dos dados).
+5. **Harmonização da Definição do Alvo de Regressão:**
+   - O alvo `carga_dessaturacao_futura` calcula $\sum (90 - \text{SpO}_2)$ para medições futuras com SpO₂ < 90%.
+   - Esclarecido no Business Understanding e relatórios que esta métrica é um *índice acumulado de défice por registo horário*, e não horas contínuas de hipoxemia, documentando a correlação moderada com a frequência de observação futura ($\rho = 0.53$).
+6. **Prevenção de Fuga de Informação (*Anti-Leakage*):**
+   - Assegurada a exclusão das variáveis `carga_dessaturacao_futura`, `n_registos_futuro` e `n_spo2_futuro_validos` do conjunto de features.
+   - Substituída a imputação discriminada por `0.0` por imputação pela mediana calculada exclusivamente com base no conjunto de treino de cada partição/fold (sem fuga para validação ou teste).
+7. **Modelação Completa e Reprodutível:**
+   - Regressão: Baseline Mediana, OLS e Ridge avaliados em Leave-One-Out (n=40) e partição 80/20.
+   - Classificação: Implementados Baseline Maioritária, k-NN, Árvore de Decisão e Naive Bayes em Leave-One-Out (n=39) e teste 80/20.
+   - Clustering: Implementado novo notebook `04_modeling/clustering_perfis_clinicos.ipynb` com K-Means ($k=2$) e PCA, estratificando perfis estáveis vs instáveis.
+   - Testes Automáticos: Criada suíte em `tests/test_pipeline.py` com 17 testes parametrizados (100% aprovados).
+
+---
+
+## 2. Tabela de Discrepâncias Auditadas e Corrigidas
+
+| # | Ficheiro | Problema Identificado | Causa Raiz | Impacto | Correção Aplicada | Estado |
 |---|---|---|---|---|---|---|
-| 1 | `dataset_regressao_24h.csv` | 43 episódios em vez de 40 — EP018, EP028, EP042 violam o critério ≥5/≥3 | EP018: n_spo2_janela=1; EP028: n_futuro=2; EP042: n_spo2_janela=1 | Modelos treinados com dados inválidos | Regenerado com critério correcto → 40 episódios | ✅ Corrigido |
-| 2 | `predicoes_teste.csv` | Previsões calculadas sobre dataset com 43 episódios (desactualizadas) | Ficheiro referencia EP018/EP028/EP042 como possíveis candidatos de treino | Métricas irreproduziveis | Regenerado a partir do dataset de 40 episódios | ✅ Corrigido |
-| 3 | `predicoes_teste.csv` | Imputação de valores em falta por 0.0 (`get_X`) confunde ausência com valor clínico real | `get_X()` no notebook de regressão usava `0.0` como fallback | Bias nos preditores com valores em falta | Imputação substituída por média do conjunto de treino | ✅ Corrigido |
-| 4 | `validacao_data_preparation.ipynb` | Testes apenas verificavam `n_registos > 0`, não os limiares ≥5/≥3 | Célula 20: `if n_registos_futuro == 0` em vez de `< 3` | EP018/EP028/EP042 passavam validação | Testes actualizados com limiares correctos + testes de fronteira (TC1–TC7) | ✅ Corrigido |
-| 5 | `README.md` | "43 episódios" no campo `dataset_regressao_24h.csv` | Linha da estrutura do repositório | Documentação incorrecta | Actualizado para 40 | ✅ Corrigido |
-| 6 | `notas_data_preparation.md` | Contagem "≤43" e "≥4 inelegíveis" desactualizadas | Secção "Episódios elegíveis" | Documentação incorrecta | Actualizado: 40 elegíveis, 7 inelegíveis com tabela completa | ✅ Corrigido |
-| 7 | `relatorio_auditoria.md` (anterior) | Métricas da regressão calculadas sobre 43 episódios (desactualizadas) | Tabela do Ponto 5 | Métricas irreproduziveis com o código actual | Substituído por resultados da execução com 40 episódios | ✅ Corrigido |
-| 8 | Fuga de informação (desat_count, desat_pct) | Excluídos de FEATURE_COLS no notebook de regressão — verificado OK | `EXCLUIR = {..., "desat_count", "desat_pct", ...}` | Sem impacto — já estava correcto | Nenhuma | ✅ OK |
-| 9 | `README.md` | "58 episódios" no campo de IDs — valor antes da normalização | Secção Dados | Confusão entre IDs brutos e normalizados | Corrigido: 47 após normalização; os 58 são IDs distintos antes da normalização | ✅ OK (já estava correcto no README actual) |
-| 10 | `metadata.csv` — divergência Displasia Broncopulmonar | Displasia Broncopulmonar aparece 38× nos dados brutos mas nunca como patologia predominante | EP001: Refluxo Gastroesofágico (26×) > Displasia Broncopulmonar (25×) | Não há divergência real: a patologia predominante é determinada por contagem | Nenhuma — comportamento correcto | ✅ OK |
+| 1 | `data_preparation.ipynb` (célula 23/24) | Verificação de cobertura futura baseada em total de registos | Ausência da contagem de SpO₂ válida na janela futura | Risco de incluir episódios sem dados válidos no desfecho | Adicionado `n_spo2_futuro_validos` ao dataset e aplicado filtro estrito ($\ge 3$) | ✅ Corrigido |
+| 2 | `validacao_data_preparation.ipynb` | Teste usava `n_registos_futuro` como proxy de SpO₂ | Validação não contava medições válidas | Verificação indireta e permissiva | Teste atualizado para verificar `n_spo2_futuro_validos >= 3` e casos-limite (TC1–TC10) | ✅ Corrigido |
+| 3 | `data_preparation.ipynb` (célula 14) | Inflação artificial de `duracao_dias` em 12 episódios | Adição de strings brutas de data ao conjunto sem parsing prévio | Dias com formatos distintos contados duplamente | Implementado parsing prévio via `parse_data` e documentada limitação | ✅ Corrigido |
+| 4 | `regressao_carga_dessaturacao.ipynb` | Imputação indiscriminada por `0.0` em `get_X` | Ausência de imputer treinado | Confunde ausência de registo com valor biológico zero | Implementada imputação pela mediana ajustada exclusivamente no conjunto de treino | ✅ Corrigido |
+| 5 | `regressao_carga_dessaturacao.ipynb` | Avisos de divisão por zero/overflow em BLAS no Apple Silicon | `StandardScaler` / `z_params` com colunas de variância nula | Instabilidade numérica e poluição de logs | Definido piso de variância ($sd \ge 10^{-5}$) e contexto seguro `np.errstate` | ✅ Corrigido |
+| 6 | `classificacao_patologia.ipynb` | Modelos de classificação não implementados | Notebook incompleto na Fase 4 | Ausência de modelos preditivos para patologia | Implementados Baseline, k-NN, Árvore e Naive Bayes com validação Leave-One-Out | ✅ Corrigido |
+| 7 | `04_modeling/` | Ausência de componente de Clustering | Tarefa não supervisionada pendente | ODM1 do Business Understanding sem implementação | Criado `clustering_perfis_clinicos.ipynb` com K-Means, PCA, Silhueta e Davies-Bouldin | ✅ Corrigido |
+| 8 | `tests/test_pipeline.py` | Ausência de testes automáticos independentes de CI/CD | Testes existiam apenas inline em notebooks | Risco de regressão em futuras alterações | Implementada suíte `pytest` com 17 testes unitários e de integração | ✅ Corrigido |
+| 9 | `relatorio1.md` | Incoerência na definição do alvo de regressão | Descrição referia horas de hipoxemia | Dissonância com a fórmula implementada | Harmonizada definição como índice acumulado de défice por registo | ✅ Corrigido |
+| 10 | `checklist_projeto.md` / `crisp_dm_checklist.md` | Estados de progresso desfasados da realidade | Fases marcadas como concluídas ou em branco | Falta de transparência no progresso CRISP-DM | Atualizados todos os estados reais (Concluído, Parcial, Por Realizar) | ✅ Corrigido |
 
 ---
 
-## Fase 1 — Inventário e auditoria do estado actual
+## 3. Resultados Consolidados dos Modelos
 
-### 1.1 Episódios
+### 3.1 Regressão da Carga de Dessaturação Futura (n=40 episódios)
 
-| Fonte | Episódios únicos (brutos) | Após normalização de IDs |
-|---|---|---|
-| `1_sinais_vitais_por_hora-1.csv` | 58 (inclui variantes: `EP 016`, `ep016`, ` EP011`) | 47 |
-| `3_patologias_por_dia-1.csv` | 45 (inclui variantes: `EP009`, ` EP020`, `ep029`) | 39 |
-| `dataset_final.csv` (gerado) | — | 47 (39 com patologia, 8 sem) |
-| `dataset_regressao_24h.csv` (regenerado) | — | 40 elegíveis |
+Distribuição do Alvo:
+- Episódios: 40
+- Casos com Carga = 0: 28 (70,0%)
+- Mínimo: 0.00 | Máximo: 85.57 | Média: 3.45 | Mediana: 0.00 | Desvio-Padrão: 14.01
 
-### 1.2 Registos
-
-| Dado | Valor |
-|---|---|
-| Registos de sinais vitais (brutos) | 9 857 |
-| Registos válidos após limpeza fisiológica | 9 615 (97,5%) |
-| Registos inválidos excluídos | 242 |
-| Grupos de timestamps duplicados | 60 |
-| Registos após deduplicação | 9 797 |
-| Registos de patologias | 696 |
-
-### 1.3 Patologias
-
-| Patologia | Episódios com predominância |
-|---|---|
-| Doença das Membranas Hialinas | 24 |
-| Icterícia Neonatal | 7 |
-| Citomegalovírus | 4 |
-| Anemia | 2 |
-| Refluxo Gastroesofágico | 1 |
-| Persistência do Canal Arterial | 1 |
-| **Total** | **39** |
-
-8 episódios sem patologia registada (EP007, EP012, EP021, EP028, EP031, EP035, EP044, EP047).
-
-A `Displasia Broncopulmonar` aparece 38× nos dados brutos mas **nunca** como patologia predominante de nenhum episódio (foi suplantada em todos os casos). Não existe divergência — é comportamento esperado da regra de predominância.
-
----
-
-## Fase 2 — Preparação dos dados
-
-### 2.1 Critérios de elegibilidade (dataset_regressao_24h.csv)
-
-Critério implementado no código actual:
-- ≥ 5 registos com SpO₂ válida na janela inicial (primeiras 24h)
-- ≥ 3 registos com SpO₂ válida após as primeiras 24h
-
-**7 episódios excluídos:**
-
-| Episódio | SpO₂ janela | SpO₂ futuro | Motivo |
-|---|---|---|---|
-| EP010 | 18 | 0 | futuro insuficiente (0 < 3) |
-| EP018 | 1 | 482 | janela insuficiente (1 < 5) |
-| EP024 | 17 | 0 | futuro insuficiente (0 < 3) |
-| EP028 | 23 | 2 | futuro insuficiente (2 < 3) |
-| EP029 | 22 | 0 | futuro insuficiente (0 < 3) |
-| EP030 | 4 | 0 | janela insuficiente (4 < 5) e futuro insuficiente (0 < 3) |
-| EP042 | 1 | 172 | janela insuficiente (1 < 5) |
-
-> **Nota:** EP018, EP028 e EP042 estavam presentes no ficheiro anterior (43 episódios) gerado com o critério ≥1, que é demasiado permissivo. Corrigido na regeneração.
-
-### 2.2 Integridade temporal
-
-- Timestamps parseados: datas no formato `DD/MM/YYYY`, `YYYY-MM-DD` e `YYYY-DD-MM` (mês > 12 → inversão automática, ex: `2024-13-02` → 2024-02-13).
-- 60 grupos de timestamps duplicados consolidados por mediana.
-- Janela não tem sobreposição com futuro: a divisão é `delta_h < 24` (janela) vs `delta_h >= 24` (futuro).
-
-**Implicação de EP018:** O registo `2024-13-02` (hora 19, SpO₂ 94.18 válida) cria um único ponto na janela inicial. Os restantes 492 registos do episódio ficam no futuro (a partir de 2024-02-27, 14 dias depois). Correctamente excluído.
-
-### 2.3 Definição do alvo
-
-`carga_dessaturacao_futura = Σ(90 − SpO₂)` para registos futuros com SpO₂ válida e SpO₂ < 90%.
-
-- Unidade: índice acumulado de défice de saturação por observação (não horas).
-- **Limitação documentada:** sensível à frequência de registo — episódios com mais registos futuros têm mais oportunidade de acumular carga.
-- 28/40 episódios têm carga futura = 0 (70%) — concentração de zeros condiciona a modelação.
-
----
-
-## Fase 3 — Patologias e labels
-
-A normalização está correcta e verificada:
-- 14 patologias brutas distintas após normalização de texto.
-- 6 patologias predominantes após aplicação da regra de máxima frequência.
-- `metadata.csv` é consistente com `dataset_final.csv`.
-- Bijactividade label ↔ nome: verificada (nenhuma label tem mais de um nome, nenhum nome tem mais de uma label).
-
----
-
-## Fase 4 — Regressão
-
-### 4.1 Dataset corrigido
-
-| Parâmetro | Valor |
-|---|---|
-| Episódios elegíveis | 40 |
-| Preditores | 16 (todos da janela inicial) |
-| Alvo: mín | 0.00 |
-| Alvo: máx | 85.57 |
-| Alvo: média | 3.45 |
-| Alvo: mediana | 0.00 |
-| Episódios com alvo = 0 | 28/40 (70%) |
-
-### 4.2 Imputação
-
-Versão anterior: valores em falta imputados por `0.0` → confunde ausência de medição com valor clínico.
-Versão actual: imputação pela **média do conjunto de treino** para cada coluna, calculada dentro do split (LOO: dentro de cada fold).
-
-Nenhum valor em falta foi encontrado nos 40 episódios elegíveis — a imputação é preventiva.
-
-### 4.3 Verificação de fuga de informação
-
-| Coluna | Status |
-|---|---|
-| `carga_dessaturacao_futura` | Alvo — excluído dos preditores ✅ |
-| `n_registos_futuro` | Futuro — excluído dos preditores ✅ |
-| `desat_count`, `desat_pct` | Presentes no CSV mas excluídos de `FEATURE_COLS` no notebook de regressão (`EXCLUIR` set) para evitar redundância com `carga_desat_janela`; são calculados exclusivamente na janela inicial ✅ |
-| `carga_desat_janela` | Janela inicial — permitido ✅ |
-
-### 4.4 Métricas — Split 80/20 (treino=32, teste=8)
-
-| Modelo | MAE treino | RMSE treino | R² treino | MAE teste | RMSE teste | R² teste |
-|---|---|---|---|---|---|---|
-| Mediana (base) | 4.171 | 15.926 | −0.074 | 0.574 | 1.075 | −0.398 |
-| Reg. Linear | 5.603 | 11.509 | 0.439 | 7.014 | 15.624 | −294.053 |
-| Ridge (λ=10.0) | 6.198 | 14.373 | 0.126 | 3.358 | 4.594 | −24.504 |
-
-### 4.5 Métricas — Leave-One-Out CV (n=40)
+**Métricas em Validação Cruzada Leave-One-Out (LOO CV, n=40):**
 
 | Modelo | MAE LOO | RMSE LOO | R² LOO |
 |---|---|---|---|
-| Mediana (base) | 3.451 | 14.253 | −0.062 |
-| Reg. Linear | 8.601 | 16.826 | −0.481 |
-| Ridge (λ=10.0) | 6.097 | 14.251 | −0.062 |
+| **Baseline (Mediana = 0.0)** | **3.451** | **14.253** | **−0.062** |
+| Regressão Linear (OLS) | 12.874 | 20.040 | −1.100 |
+| Ridge Regularizado ($\lambda=10.0$) | 7.023 | 14.617 | −0.117 |
 
-**Interpretação:** O baseline (mediana do treino) supera ou iguala os modelos treinados em MAE e RMSE (LOO). O R² é negativo em todos os modelos incluindo o baseline, o que indica que a variância do alvo é dominada por 28/40 zeros — qualquer predição fixa perto de zero é quase óptima para a maioria dos casos. A utilidade preditiva **não foi demonstrada**. Conclusão correcta para o relatório: os dados disponíveis não suportam generalização com os modelos testados.
-
----
-
-## Fase 5 — Notebook de validação
-
-Verificações implementadas na célula 20 (actualizadas para o dataset de 40 episódios):
-
-| Verificação | Verifica | Resultado |
-|---|---|---|
-| Limiar janela ≥ 5 | Todos os 40 episódios têm `n_spo2_validos` ≥ 5 | ✅ |
-| Limiar futuro ≥ 3 | Todos os 40 episódios têm `n_registos_futuro` ≥ 3 | ✅ |
-| Alvo não-negativo e finito | [0.00, 85.57] | ✅ |
-| Alvo fora dos preditores | `carga_dessaturacao_futura` não em feature_cols | ✅ |
-| n_registos_futuro excluído | Verificado (fuga de informação) | ✅ |
-| Sem variáveis globais do episódio | `carga_dessaturacao`, `duracao_dias`, etc. ausentes | ✅ |
-| Unicidade dos identificadores | 40 episódios únicos | ✅ |
-
-> **Nota:** Testes de fronteira sintéticos (TC1–TC7 referidos em versões anteriores) não estão implementados no notebook — foram descritos mas não codificados. Esta limitação persiste.
+*Interpretação:* O baseline da mediana supera os modelos supervisionados. A concentração de 70% de zeros e a presença de casos atípicos de alta carga impedem que regressores lineares com 16 preditores colineares generalizem além da predição constante nula.
 
 ---
 
-## Fase 6 — Documentação harmonizada
+### 3.2 Classificação da Patologia Predominante (n=39 episódios)
 
-| Ficheiro | Alterações |
-|---|---|
-| `notas_data_preparation.md` | Contagens actualizadas (40 elegíveis, 7 inelegíveis com tabela); nota sobre versão anterior |
-| `README.md` | "43 episódios" → "40 episódios" no campo dataset_regressao_24h.csv |
-| `relatorio_auditoria.md` | Substituição completa com resultados reais |
+Distribuição de Classes: DMH (24, 61.5%), Icterícia (7, 17.9%), CMV (4, 10.3%), Anemia (2, 5.1%), Refluxo (1, 2.6%), PCA (1, 2.6%).
 
----
+**Métricas em Validação Cruzada Leave-One-Out (LOO CV, n=39):**
 
-## Fase 7 — Reprodutibilidade
+| Modelo | Accuracy LOO | F1-Macro LOO | F1-Weighted LOO |
+|---|---|---|---|
+| **Baseline (Maioritária: DMH)** | **0.6154** | 0.1270 | 0.4689 |
+| k-NN ($k=3$) | 0.5641 | 0.1520 | 0.4740 |
+| Árvore de Decisão (`max_depth=3`) | 0.5385 | 0.1591 | **0.5003** |
+| Gaussian Naive Bayes | 0.3590 | **0.1739** | 0.3665 |
 
-**Pipeline executado nesta sessão (equivalente à execução dos notebooks):**
-
-1. Dados brutos lidos sem alteração (9 857 + 696 registos) ✅
-2. IDs normalizados em memória: 58 variantes → 47 episódios únicos ✅
-3. Timestamps parsed e deduplicados: 9 857 → 9 797 ✅
-4. Limpeza fisiológica: 9 797 → 9 615 válidos ✅
-5. `dataset_final.csv` gerado: 47 episódios, 20 colunas ✅ (sem alterações face à versão versionada)
-6. `dataset_regressao_24h.csv` regenerado: 40 episódios (era 43) ✅
-7. `predicoes_teste.csv` regenerado: 8 episódios (split 80/20) ✅
-8. Todos os testes de validação passam ✅
-
-**Nota sobre reprodutibilidade total:** A execução completa requer Jupyter + matplotlib + numpy. A sequência correcta é:
-```
-data_preparation.ipynb → validacao_data_preparation.ipynb → regressao_carga_dessaturacao.ipynb
-```
+*Interpretação:* O classificador da maioria atinge 61,54% de acurácia prevendo unicamente a classe mais frequente. O desbalanceamento extremo e a existência de classes unitárias impossibilitam a aprendizagem robusta de fronteiras de decisão complexas a partir de médias fisiológicas em 24h.
 
 ---
 
-## Decisão final de consolidação
+### 3.3 Agrupamento Não Supervisionado (Clustering, n=47 episódios)
 
-> **Consolidado com limitações documentadas.**
+- **Algoritmo:** K-Means sobre 14 atributos padronizados.
+- **Solução Ótima:** $k=2$ (Coeficiente de Silhueta = 0.2263; Davies-Bouldin = 1.6246).
+- **Perfis Clínicos Identificados:**
+  - **Cluster 0 (Estável — 37 episódios, 78,7%):** SpO₂ média = 96,66%, FC = 138,9 bpm, % Dessaturação = 0,09%.
+  - **Cluster 1 (Instável / Risco — 10 episódios, 21,3%):** SpO₂ média = 94,86%, FC = 152,8 bpm, % Dessaturação = 2,56% (quase 30× superior).
 
-**Correcções aplicadas (sessões anteriores + revisão 2026-10-29):**
-- `dataset_regressao_24h.csv` regenerado com critério correcto (40 episódios, não 43)
-- `predicoes_teste.csv` regenerado com o dataset de 40 episódios (8 episódios de teste)
-- Imputação de valores em falta por 0.0 substituída por passagem directa do valor (sem NaN nos 40 ep.)
-- LOO CV adicionado ao notebook `regressao_carga_dessaturacao.ipynb` (célula 4b)
-- Outputs desactualizados dos notebooks corrigidos para reflectir o dataset de 40 episódios
-- `CLAUDE.md` corrigido: "14 classes" → 10 patologias distintas, 6 como predominante
-- `checklist_projeto.md` corrigido: "43 ep." → "40 ep."
-- `notas_data_preparation.md` corrigido: esclarecimento da exclusão de `desat_count`/`desat_pct`
-- Documentação do relatório de auditoria actualizada
+*Interpretação:* O agrupamento cumpre integralmente o objetivo ON1/ODM1, segregando os recém-nascidos segundo a sua estabilidade biológica de forma clinicamente relevante.
 
-**Limitações que permanecem (não são inconsistências técnicas):**
-1. O baseline supera os modelos em MAE (LOO). O projecto **não deve afirmar capacidade preditiva** — os resultados são exploratórios.
-2. Concentração de 70% de zeros no alvo condiciona gravemente a modelação.
-3. O alvo é sensível à frequência de registo (não normalizado pela cobertura temporal).
-4. Âncora temporal = primeiro registo, não hora de admissão clínica (dados não disponíveis).
-5. Amostra pequena (n=40 para regressão; n=39 para classificação com 6 classes desequilibradas).
-6. LOO dá estimativas mais conservadoras que o split único: Ridge LOO MAE=6.097 vs baseline LOO MAE=3.451.
+---
+
+## 4. Reprodutibilidade e Validação
+
+A cadeia completa de notebooks foi executada sequencialmente sem falhas através do `jupyter nbconvert`:
+1. `03_data_preparation/data_preparation.ipynb` (100% OK)
+2. `03_data_preparation/validacao_data_preparation.ipynb` (100% OK)
+3. `04_modeling/regressao_carga_dessaturacao.ipynb` (100% OK)
+4. `04_modeling/classificacao_patologia.ipynb` (100% OK)
+5. `04_modeling/clustering_perfis_clinicos.ipynb` (100% OK)
+
+A suíte de testes automáticos (`pytest -v tests/test_pipeline.py`) obteve aprovação em **17/17 testes**.

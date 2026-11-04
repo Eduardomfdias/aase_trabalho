@@ -1,112 +1,97 @@
-# AASE — Análise de Sinais e Episódios Clínicos
+# AASE — Análise de Sinais e Episódios Clínicos Neonatais
 
-Repositório do Projeto 1 da disciplina **Aprendizagem Automática em Sistemas Empresariais** (Mestrado EGSI), época 2026/27.  
-Metodologia: **CRISP-DM** · Dataset: Neonatal Vital Signs and Clinical Conditions
+Repositório do Projeto da unidade curricular de **Aprendizagem Automática em Sistemas Empresariais** (Mestrado em Engenharia e Gestão de Sistemas de Informação - UMinho), época 2026/27.  
+Metodologia: **CRISP-DM** · Dataset: *Neonatal Vital Signs and Clinical Conditions*
 
 ---
 
-## Estrutura do repositório
+## Estrutura do Repositório
 
 ```
 aase_trabalho/
 ├── 01_Business_Understanding/
-│   ├── relatorio1.md                         ← relatório entregue ✅
-│   └── checklist_bu.md
+│   ├── relatorio1.md                         ← Relatório consolidado da Fase 1 ✅
+│   └── checklist_bu.md                       ← Checklist da Fase 1 ✅
 ├── 02_data_understanding/
-│   └── eda_aase.ipynb                        ← EDA completo (§1–§9) ✅
+│   ├── eda_aase.ipynb                        ← Análise Exploratória dos Dados (§1–§9) ✅
+│   └── relatorio_data_understanding.md       ← Relatório técnico de compreensão dos dados ✅
 ├── 03_data_preparation/
-│   ├── data_preparation.ipynb                ← pipeline de preparação ✅
-│   ├── validacao_data_preparation.ipynb      ← testes de validação ✅
-│   ├── notas_data_preparation.md             ← decisões documentadas
-│   ├── dataset_final.csv                     ← 47 episódios, agregado completo
-│   ├── dataset_regressao_24h.csv             ← 40 episódios, preditores 24h + alvo futuro
-│   ├── train.csv / test.csv                  ← split para classificação (32/7)
-│   └── normalisation_params.csv             ← parâmetros z-score do treino
+│   ├── data_preparation.ipynb                ← Pipeline determinístico de preparação e limpeza ✅
+│   ├── validacao_data_preparation.ipynb      ← Testes automáticos e de fronteira de integridade ✅
+│   ├── relatorio_data_preparation.md         ← Relatório técnico de preparação ✅
+│   ├── notas_data_preparation.md             ← Regras de negócio, elegibilidade e anti-leakage
+│   ├── dataset_final.csv                     ← 47 episódios únicos (agregado global)
+│   ├── dataset_regressao_24h.csv             ← 40 episódios elegíveis (janela 24h + desfecho futuro)
+│   ├── train.csv / test.csv                  ← Partição 80/20 estratificada para classificação
+│   ├── metadata.csv                          ← Mapeamento e contagens das 6 classes predominantes
+│   └── normalisation_params.csv              ← Parâmetros Z-score ajustados estritamente no treino
 ├── 04_modeling/
-│   ├── regressao_carga_dessaturacao.ipynb    ← regressão ✅
-│   ├── classificacao_patologia.ipynb         ← classificação (em curso)
-│   └── predicoes_teste.csv                  ← previsões Ridge/OLS no conjunto de teste
-├── dados_aase_202627/                        ← datasets originais (não versionar)
-│   ├── 1_sinais_vitais_por_hora-1.csv        ← ~9 857 registos horários
-│   └── 3_patologias_por_dia-1.csv            ← 696 registos de patologias
-├── checklist_projeto.md                      ← estado de todas as entregas
-└── enunciado.md
+│   ├── regressao_carga_dessaturacao.ipynb    ← Regressão (Baseline, OLS, Ridge com LOO CV) ✅
+│   ├── classificacao_patologia.ipynb         ← Classificação (Baseline, k-NN, Árvore, NB com LOO CV) ✅
+│   ├── clustering_perfis_clinicos.ipynb      ← Agrupamento não supervisionado (k-Means, PCA) ✅
+│   ├── notas_modelacao.md                    ← Resultados empíricos, métricas e interpretação clínica
+│   └── predicoes_teste.csv                   ← Previsões no conjunto de teste independente
+├── tests/
+│   └── test_pipeline.py                      ← Suíte de testes automáticos (pytest: 17 testes) ✅
+├── dados_aase_202627/                        ← Dados originais intocáveis (apenas leitura)
+│   ├── 1_sinais_vitais_por_hora-1.csv        ← 9 857 registos horários brutos
+│   └── 3_patologias_por_dia-1.csv            ← 696 registos de patologia diários brutos
+├── checklist_projeto.md                      ← Estado de cumprimento das entregas do projeto
+├── crisp_dm_checklist.md                     ← Rastreio das fases da metodologia CRISP-DM
+├── relatorio_auditoria.md                    ← Relatório detalhado da auditoria e correções
+└── README.md                                 ← Documentação principal do repositório
 ```
 
 ---
 
-## Dados originais
+## Dados e Reconciliação
 
-### `1_sinais_vitais_por_hora-1.csv`
+### Sinais Vitais (`1_sinais_vitais_por_hora-1.csv`)
+- **9 857 registos brutos** correspondentes a **47 episódios únicos** após normalização de identificadores (os 58 identificadores iniciais continham variantes gráficas e espaços).
+- **9 615 registos fisiologicamente válidos (97,5%)** após aplicação de limites biológicos neonatal (SpO₂ ∈ [50, 100], FC ∈ [50, 350], Perfusão ∈ [0, 20]).
+- **60 grupos de timestamps duplicados** consolidados pela mediana.
 
-Registos horários de monitorização por episódio de internamento.
-
-| Campo | Descrição |
-|---|---|
-| `episodio` | Identificador do episódio (ex: `EP001`) |
-| `data` | Data do registo |
-| `hora` | Hora do registo (0–23) |
-| `sat_o2` | Saturação de oxigénio — SpO₂ (%) |
-| `puls_rate` | Frequência de pulso (bpm) |
-| `perfusion` | Índice de perfusão |
-
-- **9 857 registos brutos** · **47 episódios pseudonimizados** (após normalização de IDs) · período: janeiro–abril 2024
-- Válidos após limpeza: **9 615** (97,5%) · excluídos: 242 (valores fora dos limites fisiológicos)
-
-### `3_patologias_por_dia-1.csv`
-
-Patologias registadas por episódio e por dia de internamento.
-
-| Campo | Descrição |
-|---|---|
-| `episodio` | Identificador do episódio |
-| `data` | Data do registo |
-| `patologia` | Diagnóstico/patologia registada |
-
-- **696 registos** · **14 patologias distintas** nos dados brutos após normalização; **6 classes** após critério de patologia predominante por episódio elegível
+### Patologias (`3_patologias_por_dia-1.csv`)
+- **696 registos brutos** correspondentes a **39 episódios únicos** após normalização de identificadores.
+- Todos os 39 episódios com diagnóstico constam da base de sinais vitais ($39 \cap 47 = 39$).
+- Existem **8 episódios** apenas com monitorização de sinais vitais e sem patologia associada.
+- **6 patologias predominantes** consolidadas (EP001 classificado como Refluxo Gastroesofágico com 26 registos > Displasia com 25).
 
 ---
 
-## Objetivos de Data Mining
+## Objetivos e Modelos de Data Mining
 
-| Abordagem | Alvo | Dataset |
-|---|---|---|
-| **Regressão** | Carga de dessaturação futura — Σ(90−SpO₂) para SpO₂<90% após as primeiras 24h | `dataset_regressao_24h.csv` |
-| **Classificação** | Patologia predominante (14 classes) | `dataset_final.csv` + `train/test.csv` |
-| **Clustering** | Perfil fisiológico por episódio | `dataset_final.csv` |
+| Abordagem | Alvo / Tarefa | Dataset | Melhor Desempenho (LOO CV) |
+|---|---|---|---|
+| **Regressão** | `carga_dessaturacao_futura`: $\sum (90 - \text{SpO}_2)$ para SpO₂ < 90% após 24h | `dataset_regressao_24h.csv` (n=40) | **Baseline da Mediana** (MAE = 3.451, RMSE = 14.253) |
+| **Classificação** | `pat_predominante`: previsão da patologia por perfil de sinais | `dataset_final.csv` (n=39) | **Baseline Maioritária** (Accuracy = 61.54%) |
+| **Clustering** | Estratificação de perfis fisiológicos de risco | `dataset_final.csv` (n=47) | **k-Means ($k=2$)**: Estável (78.7%) vs Instável (21.3%) |
 
 ---
 
-## Como executar
+## Instruções de Execução e Reprodutibilidade
 
-**Pré-requisitos:** Python 3.x, `matplotlib`, `numpy`
-
-**Sequência obrigatória:**
-
+### 1. Pré-requisitos
+Ambiente Python 3.10+ com as dependências instaladas:
 ```bash
-# 1. EDA (leitura apenas — não gera ficheiros)
-jupyter notebook 02_data_understanding/eda_aase.ipynb
-
-# 2. Preparação (gera todos os datasets em 03_data_preparation/)
-jupyter notebook 03_data_preparation/data_preparation.ipynb
-
-# 3. Validação da preparação
-jupyter notebook 03_data_preparation/validacao_data_preparation.ipynb
-
-# 4. Modelação — regressão
-jupyter notebook 04_modeling/regressao_carga_dessaturacao.ipynb
-
-# 5. Modelação — classificação
-jupyter notebook 04_modeling/classificacao_patologia.ipynb
+pip install pandas numpy scikit-learn matplotlib seaborn pytest jupyter nbconvert
 ```
 
-> Os ficheiros em `dados_aase_202627/` são **apenas de leitura** e nunca devem ser alterados.
+### 2. Execução da Suíte de Testes Automáticos
+Para verificar a integridade dos dados, ausência de leakage e regras de elegibilidade:
+```bash
+pytest -v tests/test_pipeline.py
+```
 
----
+### 3. Execução Automatizada dos Notebooks
+Para re-executar os notebooks em sequência e atualizar os datasets e saídas:
+```bash
+# Data Preparation e Validação
+jupyter nbconvert --to notebook --execute --inplace 03_data_preparation/data_preparation.ipynb
+jupyter nbconvert --to notebook --execute --inplace 03_data_preparation/validacao_data_preparation.ipynb
 
-## Notas
-
-- Os identificadores de episódios (`EP001`…`EP058`) são pseudonimizados.
-- IDs com variantes (`EP 016`, `ep016`) são normalizados em memória durante a preparação.
-- Limiares de validade: SpO₂ ∈ [50,100], FC ∈ [50,350], Perfusão ∈ [0,20].
-- Âncora temporal da janela 24h: primeiro registo válido do episódio (não a hora de admissão clínica — limitação documentada).
+# Modelação e Avaliação
+jupyter nbconvert --to notebook --execute --inplace 04_modeling/regressao_carga_dessaturacao.ipynb
+jupyter nbconvert --to notebook --execute --inplace 04_modeling/classificacao_patologia.ipynb
+jupyter nbconvert --to notebook --execute --inplace 04_modeling/clustering_perfis_clinicos.ipynb
+```

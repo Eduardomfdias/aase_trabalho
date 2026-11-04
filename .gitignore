@@ -10,3 +10,13 @@ CLAUDE.md
 *.out
 *.toc
 crisp-dm.pdf
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
